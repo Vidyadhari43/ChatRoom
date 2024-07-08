@@ -60,6 +60,7 @@ update(ref(database,'users/'+user.uid),{
 last_login:dt,
 })
 alert('Welcome');
+window.location.href="home.html"
 
 // ...
 })

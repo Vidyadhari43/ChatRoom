@@ -41,7 +41,7 @@ set(ref(database,'users/'+user.uid),{
 document.getElementById('logout').style.display='block';
 
 alert('Welcome'+user.displayName);
-
+window.location.href="login.html"
 // ...
 })
 .catch((error) => {
