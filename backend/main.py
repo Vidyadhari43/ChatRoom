@@ -37,7 +37,7 @@ def join_room(unique_code:str,username:str)->dict:
         return {'status':'success','msg':'Valid Code'}
 
 
-@app.websocket('/enter_room')
+@app.websocket('/enter_room/{unique_code}')
 async def enter_room(websocket:WebSocket,unique_code:str)->None:
     await websocket.accept()
     users[unique_code].append(websocket)
