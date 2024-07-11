@@ -73,25 +73,22 @@ alert(errorMessage);
 })
 
 
-
-
-
-
-
-
-
-
-
-
 let ForgotPassword = ()=>{
-sendPasswordResetEmail(auth,document.getElementById('email').value)
-.then(()=>{
-alert("A password reset link has been sent to your email");
-})
-.catch((error)=>{
-console.log(error.code);
-console.log(error.message);
-})
+  var email=document.getElementById('email').value;
+  if(email){
+    sendPasswordResetEmail(auth,document.getElementById('email').value)
+    .then(()=>{
+    alert("A password reset link has been sent to your email");
+    })
+    .catch((error)=>{
+    console.log(error.code);
+    console.log(error.message);
+    })
+  }
+
+  else{
+    alert('Enter Email to reset password')
+  }
 
 }
 
