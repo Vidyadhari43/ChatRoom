@@ -27,8 +27,8 @@ def unique_code_gen()->dict:
     print(current_list)
     return {'unique_code':unique_code}
 
-@app.post('/join_room/enter_code')
-def join_room(unique_code:str,username:str)->dict:
+@app.post('/join_room/enter_code/{unique_code}')
+def join_room(unique_code:str)->dict:
     
     if unique_code not in current_list:
         return {'status':'fail','msg':'Invalid Code'}

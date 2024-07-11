@@ -14,15 +14,21 @@ async function myFunc() {
         let data = await response.json();
 
         // consoling for debugging
-        console.log(data);
+        await console.log(data);
         // console.log(typeof data);
         // console.log(data.unique_code);
 
         roomcode.style.display = 'block';
         roomcode.value = data.unique_code;
+        sessionStorage.setItem('roomcode',data.unique_code)
 
     } catch (error) {
         console.error('Error:', error);
         alert('An error occurred while generating the code. Please try again.');
     }
+}
+
+function chat(){
+    window.location.href="chat.html"
+    // var code=document.getElementById('')
 }
