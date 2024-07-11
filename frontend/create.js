@@ -29,6 +29,7 @@ async function myFunc() {
 }
 
 function chat(){
-    window.location.href="chat.html"
+    window.location.href="chat.html";
+    
     // var code=document.getElementById('')
 }

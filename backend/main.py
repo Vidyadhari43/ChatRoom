@@ -1,10 +1,11 @@
+from collections import defaultdict
 from fastapi import FastAPI, WebSocket,WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 
 import api_functions
 
 current_list:list[str]=[]
-users:dict[str,list[WebSocket]]=dict()
+users:dict[str,list[WebSocket]]=defaultdict(list)
 app=FastAPI()
 
 app.add_middleware(
@@ -39,9 +40,10 @@ def join_room(unique_code:str)->dict:
 
 @app.websocket('/enter_room/{unique_code}')
 async def enter_room(websocket:WebSocket,unique_code:str)->None:
-    await websocket.accept()
-    users[unique_code].append(websocket)
     try:
+        await websocket.accept()
+        users[unique_code].append(websocket)
+        await api_functions.broadcast_msg('user joined',users,unique_code)
         while True:
             data = await websocket.receive_text()
             await api_functions.broadcast_msg(data,users,unique_code)
@@ -49,6 +51,8 @@ async def enter_room(websocket:WebSocket,unique_code:str)->None:
         #remove from the list
         await api_functions.user_exit(websocket,users,unique_code,current_list)
     # return {'status':'disconnected'}
+    except Exception as e:
+        return {'status':e}
     
 #should add an end point for leave button.
         

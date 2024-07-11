@@ -59,7 +59,8 @@ const dt=new Date();
 update(ref(database,'users/'+user.uid),{
 last_login:dt,
 })
-sessionStorage.setItem('username',user);
+console.log(user.displayName);
+sessionStorage.setItem('username',user.displayName);
 alert('Welcome');
 window.location.href="home.html"
 

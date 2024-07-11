@@ -39,8 +39,8 @@ set(ref(database,'users/'+user.uid),{
     email:email
 })
 document.getElementById('logout').style.display='block';
-
-alert('Welcome'+user.displayName);
+user.displayName=username;
+alert('Welcome '+user.displayName);
 window.location.href="login.html"
 // ...
 })
