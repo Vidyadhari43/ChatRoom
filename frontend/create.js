@@ -3,7 +3,7 @@ async function myFunc() {
         document.getElementById('generate').style.display = 'none';
         document.getElementById('enter').style.display = 'block';
         let roomcode = document.getElementById('roomcode');
-
+        let cpy=document.getElementById('cpy-btn');
         // URL for the API request
         let url = "http://127.0.0.1:8000/create_room/unique_code_generate";
 
@@ -19,6 +19,7 @@ async function myFunc() {
         // console.log(data.unique_code);
 
         roomcode.style.display = 'block';
+        cpy.style.display='block';
         roomcode.value = data.unique_code;
         sessionStorage.setItem('roomcode',data.unique_code)
 
@@ -33,3 +34,11 @@ function chat(){
     
     // var code=document.getElementById('')
 }
+
+function copyOutput() {
+    var copyText = document.getElementById("roomcode");
+  
+    copyText.select();
+  
+    navigator.clipboard.writeText(copyText.value);
+  }

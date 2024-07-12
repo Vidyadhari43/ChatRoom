@@ -90,6 +90,24 @@ body{
     width: 200px;
    position: relative;
 }
+.cpy-btn{
+   background-color: white;
+   height: 30px;
+   padding-right: 10px;
+    cursor: pointer;
+}
+
+#roomcode{
+    height: 30px;
+    border-right: none;
+    border-radius: 0;
+}
+.code-box{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
 .code{
     background-color: white;
     border: none;

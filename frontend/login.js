@@ -59,8 +59,6 @@ const dt=new Date();
 update(ref(database,'users/'+user.uid),{
 last_login:dt,
 })
-console.log(user.displayName);
-sessionStorage.setItem('username',user.displayName);
 alert('Welcome');
 window.location.href="home.html"
 
@@ -75,22 +73,25 @@ alert(errorMessage);
 })
 
 
-let ForgotPassword = ()=>{
-  var email=document.getElementById('email').value;
-  if(email){
-    sendPasswordResetEmail(auth,document.getElementById('email').value)
-    .then(()=>{
-    alert("A password reset link has been sent to your email");
-    })
-    .catch((error)=>{
-    console.log(error.code);
-    console.log(error.message);
-    })
-  }
 
-  else{
-    alert('Enter Email to reset password')
-  }
+
+
+
+
+
+
+
+
+
+let ForgotPassword = ()=>{
+sendPasswordResetEmail(auth,document.getElementById('email').value)
+.then(()=>{
+alert("A password reset link has been sent to your email");
+})
+.catch((error)=>{
+console.log(error.code);
+console.log(error.message);
+})
 
 }
 
