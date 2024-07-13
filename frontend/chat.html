@@ -7,6 +7,12 @@
 </head>
 <body>
     <h1>WebSocket Chat</h1>
+    <h2 id="roomcode"></h2>
+    <script> 
+        var roomcode=sessionStorage.getItem('roomcode');
+        var display_roomcode=document.getElementById('roomcode');
+        display_roomcode.innerText=`Roomcode-${roomcode}`;
+    </script>
     <input type="text" id="messageInput" placeholder="Type your message here...">
     <button id="sendButton">Send</button>
     <div id="messages"></div>
