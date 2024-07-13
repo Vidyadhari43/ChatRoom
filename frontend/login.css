@@ -1,1 +1,27 @@
+.below{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around ;
+    align-items: center;
+}
 
+.btn-border{
+    background-color:  rgb(231, 150, 238);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0px;
+}
+.google-btn {
+    margin-top: 5px;
+    margin-left: 5px;
+}
+
+.lable{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between ;
+   
+}
