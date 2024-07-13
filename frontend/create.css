@@ -96,7 +96,12 @@ body{
    padding-right: 10px;
     cursor: pointer;
 }
-
+#user-greeting{
+    color: white;
+    font-size: xx-large;
+    font-weight: bolder;
+    font-family: cursive;
+}
 #roomcode{
     height: 30px;
     border-right: none;

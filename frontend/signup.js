@@ -24,12 +24,13 @@ const auth = getAuth();
 
 register.addEventListener('click',(e)=>{
 
-
+  const username=document.getElementById('name').value;
+  sessionStorage.setItem('username',username);
 var email=document.getElementById('email').value;
-var username=document.getElementById('name').value;
+
 var password=document.getElementById('password').value;
      
-    createUserWithEmailAndPassword(auth, email, password)
+createUserWithEmailAndPassword(auth, email, password)
 .then((userCredential) => {
 // Signed up 
 const user = userCredential.user;
@@ -40,7 +41,7 @@ set(ref(database,'users/'+user.uid),{
 })
 document.getElementById('logout').style.display='block';
 user.displayName=username;
-alert('Welcome '+user.displayName);
+alert('Welcome ');
 window.location.href="login.html"
 // ...
 })

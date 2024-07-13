@@ -42,3 +42,11 @@ function copyOutput() {
   
     navigator.clipboard.writeText(copyText.value);
   }
+  document.addEventListener('DOMContentLoaded', (event) => {
+    const username = sessionStorage.getItem('username');
+    if (username) {
+        document.getElementById('user-greeting').textContent = `Welcome, ${username}!`;
+    } else {
+        document.getElementById('user-greeting').textContent = 'No username found!';
+    }
+});

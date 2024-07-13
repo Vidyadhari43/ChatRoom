@@ -30,6 +30,8 @@ auth.onAuthStateChanged(user => {
   console.log('user logged in');
   document.getElementById('logout').style.display='block';
   document.getElementById('sign-up').style.display='none';
+  document.getElementById('user-greeting').innerHTML="Hi,"+ users.username+"!";
+
   // ...
   } else {
   // User is signed out
@@ -45,6 +47,8 @@ auth.onAuthStateChanged(user => {
 
 document.getElementById('login').addEventListener('click',(e)=>{
 
+const username=document.getElementById('name').value;
+sessionStorage.setItem('username',username);
 
 var email=document.getElementById('email').value;
 
@@ -59,7 +63,7 @@ const dt=new Date();
 update(ref(database,'users/'+user.uid),{
 last_login:dt,
 })
-alert('Welcome');
+alert('Welcome '+username);
 window.location.href="home.html"
 
 // ...
