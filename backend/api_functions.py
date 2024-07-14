@@ -27,10 +27,10 @@ async def broadcast_msg(data:str,users:dict[str,list[WebSocket]],unique_code:str
     for socket in users[unique_code]:
         await socket.send_text(data)
 
-async def user_exit(websocket,users,unique_code,current_list)->None:
+async def user_exit(websocket,users,unique_code,current_list,username:str)->None:
     users[unique_code].remove(websocket)
     if len(users[unique_code])>0:
-        await broadcast_msg('user left',users,unique_code)
+        await broadcast_msg(f'{username}: left the chat',users,unique_code)
     if len(users[unique_code])==0:
         del users[unique_code]
         current_list.remove(unique_code)

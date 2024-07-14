@@ -38,18 +38,19 @@ def join_room(unique_code:str)->dict:
         return {'status':'success','msg':'Valid Code'}
 
 
-@app.websocket('/enter_room/{unique_code}')
-async def enter_room(websocket:WebSocket,unique_code:str)->None:
+@app.websocket('/enter_room/{unique_code}/{username}')
+async def enter_room(websocket:WebSocket,unique_code:str,username:str)->None:
     try:
         await websocket.accept()
         users[unique_code].append(websocket)
-        await api_functions.broadcast_msg('user joined',users,unique_code)
+        await api_functions.broadcast_msg(f'{username}: joined the chat',users,unique_code)
         while True:
-            data = await websocket.receive_text()
+            data:str = await websocket.receive_text()
+            data=username+': '+data
             await api_functions.broadcast_msg(data,users,unique_code)
     except WebSocketDisconnect:
         #remove from the list
-        await api_functions.user_exit(websocket,users,unique_code,current_list)
+        await api_functions.user_exit(websocket,users,unique_code,current_list,username)
     # return {'status':'disconnected'}
     except Exception as e:
         return {'status':e}
