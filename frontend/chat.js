@@ -1,7 +1,8 @@
 // Assuming you have the unique code available as a variable
 const uniqueCode = sessionStorage.getItem('roomcode');
 console.log(uniqueCode);
-const wsUrl = `ws://127.0.0.1:8000/enter_room/${uniqueCode}`;
+const username=sessionStorage.getItem('username');
+const wsUrl = `ws://127.0.0.1:8000/enter_room/${uniqueCode}/${username}`;
 
 // Initialize the WebSocket connection
 const socket = new WebSocket(wsUrl);

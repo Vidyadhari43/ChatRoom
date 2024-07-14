@@ -20,7 +20,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database=getDatabase(app);
 const auth = getAuth();
-//const provider = new GoogleAuthProvider(app);
+const provider = new GoogleAuthProvider(app);
 
 //var login=document.getElementById("login");
 
@@ -43,9 +43,11 @@ auth.onAuthStateChanged(user => {
   
   }
   });
-  signInWithRedirect(auth, provider);
-document.getElementById('google-btn').addEventListener('click',(e)=>{
   
+  var googleBtn=document.getElementById('google-btn');
+googleBtn.addEventListener('click',(e)=>{
+  signInWithRedirect(auth, provider);
+ 
   getRedirectResult(auth)
   .then((result) => {
     // This gives you a Google Access Token. You can use it to access Google APIs.
@@ -54,7 +56,10 @@ document.getElementById('google-btn').addEventListener('click',(e)=>{
 
     // The signed-in user info.
     const user = result.user;
-    alert(user.displayName);
+    sessionStorage.setItem('username',user.displayName);
+
+   
+    
     // IdP data available using getAdditionalUserInfo(result)
     // ...
   }).catch((error) => {
@@ -68,6 +73,11 @@ document.getElementById('google-btn').addEventListener('click',(e)=>{
     // ...
   })
 })
+
+
+
+
+
 
 document.getElementById('login').addEventListener('click',(e)=>{
 
@@ -132,7 +142,3 @@ document.getElementById('forgotpass').addEventListener("click",ForgotPassword);
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
-
-
-
-
