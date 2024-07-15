@@ -31,7 +31,7 @@ auth.onAuthStateChanged(user => {
   console.log('user logged in');
   document.getElementById('logout').style.display='block';
   document.getElementById('sign-up').style.display='none';
-  document.getElementById('user-greeting').innerHTML="Hi,"+ users.username+"!";
+  
 
   // ...
   } else {
@@ -47,7 +47,7 @@ auth.onAuthStateChanged(user => {
   var googleBtn=document.getElementById('google-btn');
 googleBtn.addEventListener('click',(e)=>{
   signInWithRedirect(auth, provider);
- 
+ alert("clicked");
   getRedirectResult(auth)
   .then((result) => {
     // This gives you a Google Access Token. You can use it to access Google APIs.

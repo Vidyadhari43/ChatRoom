@@ -24,11 +24,11 @@ const auth = getAuth();
 
 register.addEventListener('click',(e)=>{
 
-  const username=document.getElementById('name').value;
+  const username=document.getElementById('names').value;
   sessionStorage.setItem('username',username);
-var email=document.getElementById('email').value;
+var email=document.getElementById('emails').value;
 
-var password=document.getElementById('password').value;
+var password=document.getElementById('passwords').value;
      
 createUserWithEmailAndPassword(auth, email, password)
 .then((userCredential) => {
