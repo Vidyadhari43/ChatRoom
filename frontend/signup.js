@@ -25,6 +25,7 @@ const auth = getAuth();
 register.addEventListener('click',(e)=>{
 
   const username=document.getElementById('names').value;
+
   sessionStorage.setItem('username',username);
 var email=document.getElementById('emails').value;
 
