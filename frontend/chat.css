@@ -1,0 +1,125 @@
+body{
+    background-image: url('bg_1.avif');
+}
+.content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 60px;
+}
+.main{
+    z-index: 2;
+    background-color: white;
+    width: 600px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border:5px;
+   margin-top: 30px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 2.5%;
+}
+#messages{
+    margin-top: 10px;
+    margin-left: 5px;
+    margin-right: 0;
+    overflow: auto;
+}
+.send{
+    margin-left: 5px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 4px;
+}
+.text{
+    width: 500px;
+    height: 20px;
+    border-color: rgb(231, 150, 238);
+    border-style: solid;
+    
+}
+#sendButton{
+    color: rgb(165, 6, 179);
+    border: none;
+    background-color: white;
+    cursor: pointer;
+}
+
+.top{
+    z-index: 2;
+}
+.logout-but{
+    border-color: rgb(128, 12, 253);
+    font-size: 19px;
+    color: rgb(128, 12, 253);
+   transition-duration: 0.4s;
+  cursor: pointer;
+  width: 150px;
+  height: 40px;
+  margin-left: 20px;
+  margin-right: 15px;
+}
+.logout-but:hover{
+    background-color: rgb(128, 12, 253);
+    color: white;
+    
+}
+.hide{
+    display: none;
+}
+.container-fluid{
+    display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+}
+.user-pic{
+    border-radius: 50%;
+    width: 45px;
+    cursor: pointer;
+}
+.sub-menu-wrap{
+    position: absolute;
+    top: 100%;
+    right: 1.5%;
+    width: 200px;
+    justify-content: space-between;
+    border-radius: 40%;
+   max-height: 0px;
+   overflow: hidden;
+    transition: max-height 0.8s;
+}
+
+.sub-menu-wrap.open-menu{
+    max-height: 400px;
+}
+
+.sub-menu{
+    background: #fff;
+    padding: 20px;
+    margin: 10px;
+}
+.user-info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.user-info h3{
+    font-weight: 500;
+}
+.user-info img{
+    width: 60px;
+    border-radius: 50%;
+   
+}
+.sub-menu hr{
+    border: 0;
+    height: 1px;
+    color: #0a0a0a;
+    margin: 15px 0 10px;
+}

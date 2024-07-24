@@ -42,3 +42,4 @@ document.getElementById('sendButton').addEventListener('click', function() {
         alert('Please enter a message');
     }
 });
+
