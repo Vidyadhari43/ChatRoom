@@ -77,7 +77,7 @@ auth.onAuthStateChanged(user => {
     alert(user.displayName);
     const name=user.displayName;
     sessionStorage.setItem('username',name);
-  //  window.location.href="home.html";
+    window.location.href="home.html";
     // ...
   }).catch((error) => {
     // Handle Errors here.
