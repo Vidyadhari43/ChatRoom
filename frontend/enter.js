@@ -108,11 +108,11 @@ var googleBtnsig=document.getElementById('google-btn-sig');
     document.getElementById('sig-password').style.display='none';
     //document.getElementById('option').innerHTML="Enter username";
     document.getElementById('register').style.display='none';
-    var newbutton=document.createElement('button');
-    newbutton.innerText="Continue";
-    var container=document.getElementById('credentials');
-    container.appendChild(newbutton);
-
+    // var newbutton=document.createElement('button');
+    // newbutton.innerText="Continue";
+    // var container=document.getElementById('credentials');
+    // container.appendChild(newbutton);
+    document.getElementById('newbutton').style.display='block';
 
     // IdP data available using getAdditionalUserInfo(result)
     alert(user.displayName);
@@ -121,18 +121,59 @@ var googleBtnsig=document.getElementById('google-btn-sig');
    // window.location.href="home.html";
     // ...
   }).catch((error) => {
-    // Handle Errors here.
     const errorCode = error.code;
     const errorMessage = error.message;
-    // The email of the user's account used.
-    // const email = error.customData.email;
-    // The AuthCredential type that was used.
     const credential = GoogleAuthProvider.credentialFromError(error);
     alert(errorMessage);
-    // ...
   });
 })
 
+document.getElementById('newbutton').addEventListener('click',async (e)=>{
+  const username = await document.getElementById('sig-name').value;
+  const checkUsernameUrl = `http://127.0.0.1:8000/signup/unique_username/${username}`;
+  const insertUsernameUrl = `http://127.0.0.1:8000/signup/insert_unique_username/${username}`;
+  try {
+    // Check if the username is unique
+    let response = await fetch(checkUsernameUrl, {
+      method: 'POST',
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      }
+    });
+
+    let data = await response.json();
+    console.log(data);
+
+    if (data.status === 'fail') {
+      alert(data.msg);
+    } 
+    else {
+      sessionStorage.setItem('username', username);
+
+      let response = await fetch(insertUsernameUrl, {
+        method: 'POST',
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      });
+
+      let data = await response.json();
+      console.log(data.msg);
+
+      if (data.status === 'fail') {
+        throw new Error(data.msg);
+      } 
+      else {
+        alert("Successfully registered!");
+        window.location.href = "home.html";
+      }
+    }
+  } 
+  catch (error) {
+    console.error('Error:', error);
+    alert('An error occurred. Please try again.');
+  }
+})
 
 
 document.getElementById('login').addEventListener('click',(e)=>{
@@ -164,7 +205,6 @@ const errorCode = error.code;
 const errorMessage = error.message;
 alert(errorMessage);
 });
-
 })
 
 let ForgotPassword = ()=>{
@@ -177,7 +217,6 @@ alert("A password reset link has been sent to your email");
 console.log(error.code);
 console.log(error.message);
 })
-
 }
 
 document.getElementById('forgotpass').addEventListener("click",ForgotPassword);
@@ -231,6 +270,7 @@ document.getElementById('register').addEventListener('click', async (e) => {
             throw new Error(data.msg);
           } else {
             // Store additional user data in Firebase Realtime Database
+            
             await set(ref(database, 'users/' + user.uid), {
               username: username,
               email: email
@@ -253,22 +293,19 @@ document.getElementById('register').addEventListener('click', async (e) => {
 });
 
 
-
-
-
 //logout.js
 
 document.getElementById("logout").addEventListener("click",function(){
-    signOut(auth).then(() => {
-              // Sign-out successful.
-              console.log('Sign-out successful.');
-              alert('Sign-out successful.');
-              document.getElementById('logout').style.display = 'none';
-        document.getElementById('name').value="";
-        document.getElementById('email').value="";
-        document.getElementById('password').value="";
-            }).catch((error) => {
-              // An error happened.
-              console.log('An error happened.');
-            });
-    })
+  signOut(auth).then(() => {
+            // Sign-out successful.
+    console.log('Sign-out successful.');
+    alert('Sign-out successful.');
+    document.getElementById('logout').style.display = 'none';
+    document.getElementById('name').value="";
+    document.getElementById('email').value="";
+    document.getElementById('password').value="";
+  }).catch((error) => {
+    // An error happened.
+    console.log('An error happened.');
+  });
+})
