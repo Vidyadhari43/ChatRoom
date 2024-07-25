@@ -18,11 +18,13 @@
                           </svg></a>
                        
                     </div>
-                    <span>or use your email for registration</span>
-                    <input type="text" id="sig-name" placeholder="Name" class="form-control" />
-                    <input type="email" id="sig-mail" placeholder="Email" class="form-control"/>
-                    <input type="password" id="sig-password" placeholder="Password" class="form-control"/>
+                   <hr>
+                   <div id="credentials">
+                    <input type="text" id="sig-name" placeholder="Name" class="form-control" required  >
+                    <input type="email" id="sig-mail" placeholder="Email" class="form-control" required>
+                    <input type="password" id="sig-password" placeholder="Password" class="form-control" required>
                     <button id="register" type="button">Sign Up</button>
+                </div>
                 </form>
             </div>
             <div class="form-container sign-in-container">
@@ -36,9 +38,9 @@
                        
                     </div>
                     <span>or use your account</span>
-                    <input type="name" id="log-name" class="form-control" placeholder="Name" />
-                    <input type="email" id="log-mail" placeholder="Email" class="form-control"/>
-                    <input type="password" id="log-password" placeholder="Password" class="form-control" />
+                    <input type="name" id="log-name" class="form-control" placeholder="Name" required>
+                    <input type="email" id="log-mail" placeholder="Email" class="form-control" required>
+                    <input type="password" id="log-password" placeholder="Password" class="form-control" required >
                     <a href="#" id="forgotpass">Forgot your password?</a>
                     <button id="login" type="button">Sign In</button>
                 </form>

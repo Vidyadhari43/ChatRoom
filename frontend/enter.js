@@ -65,6 +65,7 @@ auth.onAuthStateChanged(user => {
  
   var googleBtn=document.getElementById('google-btn');
   googleBtn.addEventListener('click',(e)=>{ 
+    console.log('hi login');
   signInWithPopup(auth, provider)
   .then((result) => {
     // This gives you a Google Access Token. You can use it to access the Google API.
@@ -76,7 +77,7 @@ auth.onAuthStateChanged(user => {
     alert(user.displayName);
     const name=user.displayName;
     sessionStorage.setItem('username',name);
-    window.location.href="home.html";
+  //  window.location.href="home.html";
     // ...
   }).catch((error) => {
     // Handle Errors here.
@@ -94,6 +95,8 @@ auth.onAuthStateChanged(user => {
 
 var googleBtnsig=document.getElementById('google-btn-sig');
   googleBtnsig.addEventListener('click',(e)=>{ 
+
+    console.log('hii');
   signInWithPopup(auth, provider)
   .then((result) => {
     // This gives you a Google Access Token. You can use it to access the Google API.
@@ -101,18 +104,28 @@ var googleBtnsig=document.getElementById('google-btn-sig');
     const token = credential.accessToken;
     // The signed-in user info.
     const user = result.user;
+    document.getElementById('sig-mail').style.display='none';
+    document.getElementById('sig-password').style.display='none';
+    //document.getElementById('option').innerHTML="Enter username";
+    document.getElementById('register').style.display='none';
+    var newbutton=document.createElement('button');
+    newbutton.innerText="Continue";
+    var container=document.getElementById('credentials');
+    container.appendChild(newbutton);
+
+
     // IdP data available using getAdditionalUserInfo(result)
     alert(user.displayName);
     const name=user.displayName;
     sessionStorage.setItem('username',name);
-    window.location.href="home.html";
+   // window.location.href="home.html";
     // ...
   }).catch((error) => {
     // Handle Errors here.
     const errorCode = error.code;
     const errorMessage = error.message;
     // The email of the user's account used.
-    const email = error.customData.email;
+    // const email = error.customData.email;
     // The AuthCredential type that was used.
     const credential = GoogleAuthProvider.credentialFromError(error);
     alert(errorMessage);
