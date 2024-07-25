@@ -154,17 +154,6 @@ alert(errorMessage);
 
 })
 
-
-
-
-
-
-
-
-
-
-
-
 let ForgotPassword = ()=>{
 sendPasswordResetEmail(auth,document.getElementById('log-mail').value)
 
@@ -180,52 +169,77 @@ console.log(error.message);
 
 document.getElementById('forgotpass').addEventListener("click",ForgotPassword);
 
-
-
-
-
-
-
-
-
 //signup.js
+document.getElementById('register').addEventListener('click', async (e) => {
+  e.preventDefault();
 
+  const username = document.getElementById('sig-name').value;
+  const email = document.getElementById('sig-mail').value;
+  const password = document.getElementById('sig-password').value;
 
+  const checkUsernameUrl = `http://127.0.0.1:8000/signup/unique_username/${username}`;
+  const insertUsernameUrl = `http://127.0.0.1:8000/signup/insert_unique_username/${username}`;
 
+  try {
+    // Check if the username is unique
+    let response = await fetch(checkUsernameUrl, {
+      method: 'POST',
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      }
+    });
 
-document.getElementById('register').addEventListener('click',(e)=>{
+    let data = await response.json();
+    console.log(data);
 
-  const username=document.getElementById('sig-name').value;
-  sessionStorage.setItem('username',username);
-var email=document.getElementById('sig-mail').value;
+    if (data.status === 'fail') {
+      alert(data.msg);
+    } 
+    else {
+      // Username is unique, proceed with Firebase Authentication
+      sessionStorage.setItem('username', username);
 
-var password=document.getElementById('sig-password').value;
-     
-createUserWithEmailAndPassword(auth, email, password)
-.then((userCredential) => {
-// Signed up 
-const user = userCredential.user;
+      createUserWithEmailAndPassword(auth, email, password)
+        .then(async (userCredential) => {
+          const user = userCredential.user;
 
-set(ref(database,'users/'+user.uid),{
-    username:username,
-    email:email
-})
-//document.getElementById('logout').style.display='block';
-alert("Successfully registered!");
-window.location.href="home.html"
-// ...
-})
-.catch((error) => {
-const errorCode = error.code;
-const errorMessage = error.message;
-// ..
-alert(errorMessage);
+          // Insert the unique username in the backend
+          let response = await fetch(insertUsernameUrl, {
+            method: 'POST',
+            headers: {
+              "Content-type": "application/json; charset=UTF-8"
+            }
+          });
 
+          let data = await response.json();
+          console.log(data.msg);
 
+          if (data.status === 'fail') {
+            throw new Error(data.msg);
+          } else {
+            // Store additional user data in Firebase Realtime Database
+            await set(ref(database, 'users/' + user.uid), {
+              username: username,
+              email: email
+            });
+
+            alert("Successfully registered!");
+            window.location.href = "home.html";
+          }
+        })
+        .catch((error) => {
+          console.error('Error during user creation:', error);
+          alert(error.message);
+        });
+    }
+  } 
+  catch (error) {
+    console.error('Error:', error);
+    alert('An error occurred. Please try again.');
+  }
 });
 
 
-})
 
 
 

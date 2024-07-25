@@ -16,6 +16,22 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers
 )
 
+@app.post('/signup/unique_username/{username}')
+def unique_username(username)->dict:
+    if api_functions.UsernameExists(username):
+        return {'status':'fail','msg':'username already exist'}
+    else:
+        return {'status':'success','msg':'unique username'}
+ 
+    
+@app.post('/signup/insert_unique_username/{username}')
+def insert_unique_username(username)->dict:
+    if api_functions.InsertUsername(username):
+        return {'status':'success','msg':'username inserted'}
+    else:
+        return {'status':'fail','msg':'username insertion failed'}
+
+
 @app.get('/create_room/unique_code_generate') #should change it to post request. request should send username
 def unique_code_gen()->dict:
     """
