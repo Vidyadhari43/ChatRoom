@@ -3,13 +3,14 @@ import secrets
 from fastapi import WebSocket
 from pymongo import MongoClient
 
-mongo_client=MongoClient("localhost",27017)
-db=mongo_client.chatroom
+# mongodb connection
+mongo_client:MongoClient=MongoClient("localhost",27017)
+db=mongo_client.chatroom # type: ignore
 collection=db.username
 
 def UsernameExists(username:str)->bool:
     """
-    checks whether the username exists or not
+    Checks whether the username exists or not
 
     Args:
         username (str): username of user
@@ -24,6 +25,15 @@ def UsernameExists(username:str)->bool:
         return False
 
 def InsertUsername(username:str)->bool:
+    """
+    Inserts the username into database
+
+    Args:
+        username (str): username of user
+
+    Returns:
+        bool: returns True if insertion of username into database is successful, else False
+    """
     try:
         collection.insert_one({'username':username})
         return True

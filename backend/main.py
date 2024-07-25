@@ -17,7 +17,16 @@ app.add_middleware(
 )
 
 @app.post('/signup/unique_username/{username}')
-def unique_username(username)->dict:
+def unique_username(username:str)->dict:
+    """
+    Checks whether the username is unique or not. That is the username previously used by any other user.
+
+    Args:
+        username (str): Requested username of the user
+
+    Returns:
+        dict: Returns fail in the status if the username already exist. Else returns success.
+    """
     if api_functions.UsernameExists(username):
         return {'status':'fail','msg':'username already exist'}
     else:
@@ -25,7 +34,16 @@ def unique_username(username)->dict:
  
     
 @app.post('/signup/insert_unique_username/{username}')
-def insert_unique_username(username)->dict:
+def insert_unique_username(username:str)->dict:
+    """
+    Insert username into database
+
+    Args:
+        username (str): username of the user
+
+    Returns:
+        dict: Returns fail as status key value if the insertion into database fails. Else returns success.
+    """
     if api_functions.InsertUsername(username):
         return {'status':'success','msg':'username inserted'}
     else:
@@ -46,7 +64,15 @@ def unique_code_gen()->dict:
 
 @app.post('/join_room/enter_code/{unique_code}')
 def join_room(unique_code:str)->dict:
-    
+    """
+    Checks whether the roomcode is valid.
+
+     Args:
+        unique_code (str): Roomcode of the chatroom that user intended to join.
+
+    Returns:
+        dict: Returns fail as status key value if the roomcode is invaild or all the users in the room left. Else returns success.
+    """
     if unique_code not in current_list:
         return {'status':'fail','msg':'Invalid Code'}
     
@@ -56,6 +82,17 @@ def join_room(unique_code:str)->dict:
 
 @app.websocket('/enter_room/{unique_code}/{username}')
 async def enter_room(websocket:WebSocket,unique_code:str,username:str)->None:
+    """
+    Send and display the messages sent by the users joined with same roomcode.
+
+    Args:
+        websocket (WebSocket): websocket value from which the request sent to the server.
+        unique_code (str): Roomcode of the chatroom.
+        username (str): username of the user who joined the room.
+
+    Returns:
+        _type_: _description_
+    """
     try:
         await websocket.accept()
         users[unique_code].append(websocket)
