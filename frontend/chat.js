@@ -23,6 +23,9 @@ socket.onmessage = function(event) {
     // use recv_msg.action 
     // action='join' for joined the chat, action='left' for left the chat, action='text' for other messages
     console.log('action: '+ recv_msg.action);
+    if (recv_msg.action==='join' || recv_msg.action==='left'){
+        newMessage.classList.add('centre');
+    }
     if(recv_msg.sent_username===username){
         newMessage.classList.add('my-message');
 

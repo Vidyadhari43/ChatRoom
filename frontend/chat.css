@@ -22,14 +22,26 @@ body{
     background-color: #d1ffd1;
    
     width: 260px;
-    margin-left: 300px;
+    margin-left: 300px; 
+    /* margin-right: 0px; */
    
   }
 .other-message {
     background-color: #f00a0a;
   }
+.centre{
+    background-color: rgb(160, 208, 250);
+    margin-left: 180px;
+    border-radius: 20px;
+    width: 180px;
+    height: 27px;
+    padding-top: 1px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
 .roomcode{
     z-index: 2;
+    /* background-color: white; */
 }
 .main{
     z-index: 2;
@@ -62,10 +74,15 @@ body{
 }
 .text{
     width: 500px;
-    height: 20px;
+    height: 30px;
     border-color: rgb(231, 150, 238);
     border-style: solid;
     
+}
+.text:focus{
+    /* border-color: rgb(165, 6, 179);
+    border-style: solid; */
+    border: 3px solid rgb(223, 123, 232);
 }
 #sendButton{
     color: rgb(165, 6, 179);
