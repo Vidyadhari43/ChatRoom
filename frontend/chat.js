@@ -20,7 +20,7 @@ socket.onmessage = function(event) {
     const newMessage = document.createElement('div');
     const username = sessionStorage.getItem('username');
     newMessage.textContent = recv_msg.sent_username+': '+recv_msg.msg;
-    // use recv_msg.sent_username.action 
+    // use recv_msg.action 
     // action='join' for joined the chat, action='left' for left the chat, action='text' for other messages
     console.log('action: '+ recv_msg.action);
     if(recv_msg.sent_username===username){
