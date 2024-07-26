@@ -18,7 +18,15 @@ socket.onmessage = function(event) {
     const recv_msg=JSON.parse(event.data)
     const messagesDiv = document.getElementById('messages');
     const newMessage = document.createElement('div');
+    const username = sessionStorage.getItem('username');
     newMessage.textContent = recv_msg.sent_username+': '+recv_msg.msg;
+    if(recv_msg.sent_username===username){
+        newMessage.classList.add('my-message');
+
+    }
+    else {
+        newMessage.classList.add('other-messsage');
+    }
     newMessage.classList.add('message');
     messagesDiv.appendChild(newMessage);
 };
@@ -26,6 +34,7 @@ socket.onmessage = function(event) {
 // Event handler for connection close
 socket.onclose = function(event) {
     console.log('WebSocket connection closed:', event);
+
 };
 
 // Event handler for errors
@@ -34,6 +43,17 @@ socket.onerror = function(error) {
 };
 
 // Event listener for the send button
+var input=document.getElementById('messageInput');
+input.addEventListener("keypress", function(event) {
+    // If the user presses the "Enter" key on the keyboard
+    if (event.key === "Enter") {
+      // Cancel the default action, if needed
+      event.preventDefault();
+      // Trigger the button element with a click
+      document.getElementById("sendButton").click();
+    }
+  });
+
 document.getElementById('sendButton').addEventListener('click', function() {
     const messageInput = document.getElementById('messageInput');
     const message = messageInput.value;
@@ -44,4 +64,5 @@ document.getElementById('sendButton').addEventListener('click', function() {
         alert('Please enter a message');
     }
 });
+
 
