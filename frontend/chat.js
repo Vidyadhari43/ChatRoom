@@ -18,6 +18,7 @@ socket.onmessage = function(event) {
     const messagesDiv = document.getElementById('messages');
     const newMessage = document.createElement('div');
     newMessage.textContent = event.data;
+    newMessage.classList.add('message');
     messagesDiv.appendChild(newMessage);
 };
 

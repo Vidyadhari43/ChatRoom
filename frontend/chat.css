@@ -8,6 +8,17 @@ body{
     align-items: center;
     margin-top: 60px;
 }
+.message {
+    padding: 5px;
+    margin-bottom: 5px;
+    border-radius: 3px;
+  }
+  .my-message {
+    background-color: #d1ffd1;
+  }
+  .other-message {
+    background-color: #ffd1d1;
+  }
 .main{
     z-index: 2;
     background-color: white;
