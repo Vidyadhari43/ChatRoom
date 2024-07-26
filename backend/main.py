@@ -96,11 +96,10 @@ async def enter_room(websocket:WebSocket,unique_code:str,username:str)->None:
     try:
         await websocket.accept()
         users[unique_code].append(websocket)
-        await api_functions.broadcast_msg(f'{username}: joined the chat',users,unique_code)
+        await api_functions.broadcast_msg(username,'joined the chat',users,unique_code)
         while True:
             data:str = await websocket.receive_text()
-            data=username+': '+data
-            await api_functions.broadcast_msg(data,users,unique_code)
+            await api_functions.broadcast_msg(username,data,users,unique_code)
     except WebSocketDisconnect:
         #remove from the list
         await api_functions.user_exit(websocket,users,unique_code,current_list,username)

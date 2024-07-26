@@ -15,9 +15,10 @@ socket.onopen = function(event) {
 // Event handler for receiving messages
 socket.onmessage = function(event) {
     console.log('Message from server:', event.data);
+    const recv_msg=JSON.parse(event.data)
     const messagesDiv = document.getElementById('messages');
     const newMessage = document.createElement('div');
-    newMessage.textContent = event.data;
+    newMessage.textContent = recv_msg.sent_username+': '+recv_msg.msg;
     newMessage.classList.add('message');
     messagesDiv.appendChild(newMessage);
 };
