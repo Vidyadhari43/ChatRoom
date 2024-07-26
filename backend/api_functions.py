@@ -62,7 +62,7 @@ def GenerateRandomCode(current_list:list[str])->str:
 
 #should try by changing it to synchronous and see how they differ
 
-async def broadcast_msg(username:str,data:str,users:dict[str,list[WebSocket]],unique_code:str)->None:
+async def broadcast_msg(username:str,data:str,users:dict[str,list[WebSocket]],unique_code:str,action:str)->None:
     """
     Broadcast the message to all the users in the chatroom with same roomcode
 
@@ -72,7 +72,7 @@ async def broadcast_msg(username:str,data:str,users:dict[str,list[WebSocket]],un
         users (dict[str,list[WebSocket]]): list of all the users in the chatroom with same roomcode
         unique_code (str): roomcode
     """
-    data={'sent_username':username,'msg':data}
+    data={'sent_username':username,'msg':data,'action':action}
     for socket in users[unique_code]:
         await socket.send_json(data)
 
@@ -89,7 +89,7 @@ async def user_exit(websocket:WebSocket,users:dict[str,list[WebSocket]],unique_c
     """
     users[unique_code].remove(websocket)
     if len(users[unique_code])>0:
-        await broadcast_msg(username,'left the chat',users,unique_code)
+        await broadcast_msg(username,'left the chat',users,unique_code,'left')
     if len(users[unique_code])==0:
         del users[unique_code]
         current_list.remove(unique_code)
