@@ -140,6 +140,7 @@
     align-items: center;
     justify-content: space-evenly;
     margin: 40px;
+    
 }
 .start-text{
     font-size: 20px;
@@ -159,6 +160,7 @@
     
     justify-content: space-evenly;
 }
+
 .messaging{
     display: flex;
     flex-direction: column;
