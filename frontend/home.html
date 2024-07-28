@@ -10,18 +10,11 @@
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-          <a class="navbar-brand" href="home.html">Logo</a>
+          <a class="navbar-brand" href="home.html"><img src="logo.png" /></a>
           <div class="top-nav-right">
            
-            <a href="enter.html" id="signup" ><button class="sig-but">Login/Sign-up</button></a>
-            <a href="enter.html" id="create" ><button class="sig-but">Create Room</button></a>
-        
-         
-          <a href="create.html" id="create-hide" ><button class="sig-but">Create Room</button></a>
-          <a href="enter.html" id="join" ><button class="sig-but">Join Room</button></a>
-        
-         
-          <a href="join.html" id="join-hide" ><button class="sig-but">Join Room</button></a>
+            
+           
 
           <img src="default_0.jpg" class="user-pic" onclick="toggleMenu()">
           <div class="sub-menu-wrap" id="subMenu">
@@ -30,7 +23,7 @@
                 <img src="default_0.jpg">
                <hr> 
                <a href="enter.html" id="login"><button class="log-but">Login/Sign-up</button></a>
-               <button id="logout" class="sig-but" style="display: none;">Logout</button>
+               <button id="logout" class="logout" style="display: none;">Logout</button>
 
               </div>
             </div>
@@ -42,6 +35,64 @@
         </div>
       </nav>
 
+      <div id="description" class="description">
+        <img class="desc" src="desc-removebg-preview.png" />
+        <div class="matter">
+          <h1 class="welcome" style="color: white; font-size: 35px; font-family: 'Times New Roman', Times, serif;">Welcome to Let's Chat!</h1>
+          <p style="color: white; font-size: 17px; font-family: cursive">Let's Chat is a dynamic online platform designed to facilitate seamless communication and collaboration</p>
+          <p style="color: white; font-size: 17px; font-family: cursive">Whether you're looking to connect with friends or join group discussions our chatroom website provides a secure environment to do so.</p>
+         
+          <a href="enter.html" id="signup" ><button class="try">Create Account <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16" style="align-items: center;">
+            <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/>
+          </svg></button></a>
+        </div>
+      </div>
+      <h2 style="margin-top: 20px; margin-left: 25px; font-family: cursive; color: rgb(207, 5, 248);">How to get started <img src="explore.png" style="width: 50px;"></h2>
+      <div class="getstarted">
+        <div class="start">
+          <img src="create.png" style="border-radius: 25px; width: 300px;" />
+          <a href="enter.html" id="create" ><button class="sig-but" >Create Room</button></a>
+          <!-- <a href="create.html" id="create-hide"  ><button class="sig-but" style="margin-left: 50px; height: 100px;">Create Room</button></a> -->
+          <p class="start-text">Generate room code.</p>
+          <p class="start-text">Copy room code.</p>
+          <p class="start-text">Share it with your friends.</p>
+        </div>
+        <div class="go">
+          <img src="join.png" style="border-radius: 25px; width: 300px;" />   
+          <a href="enter.html" id="join" ><button class="sig-but">Join Room</button></a>
+         <!-- <a href="join.html" id="join-hide" ><button class="sig-but">Join Room</button></a> -->
+         <p class="start-text">Paste room code.</p>
+         <p class="start-text">Join room.</p>
+         <p class="start-text">Chat with your friends. </p>
+        </div>
+      </div>
+      <h2 style="margin-top: 20px; margin-left: 25px; font-family: cursive; color: rgb(207, 5, 248); border-radius: 50%;">Our Services <img src="services.png" style="width: 50px;"></h2>
+
+      <div class="services" >
+        <div class="messaging">
+          <img class="msg" src="msg.jpeg" style="width: 70px;"/>
+          <p style="font-family: Georgia, 'Times New Roman', Times, serif; color: rgb(207, 5, 248); font-size: 30px;">Messaging</p>
+          <p class="start-text" style="font-size: 15px; margin-top: 0px;">Whether you're engaging in one-on-one conversations or participating in group discussions, our platform ensures real-time, secure, and private messaging. </p>
+        </div>
+       <div class="calls">
+        <div class="voice-call" >
+          <img src="voice-call.png" style="width: 70px;" />
+          <p style="font-family: Georgia, 'Times New Roman', Times, serif; color: rgb(207, 5, 248); font-size: 30px;">Voice Call</p>
+          <p class="start-text" style="font-size: 15px; margin-top: 0px;">Enjoy private one-on-one calls or create group conversations with multiple participants, all within the secure environment of our chatroom.</p>
+        </div>
+        <div class="video-call">
+          <img src="video-call.jpg" style="width: 70px;" />
+          <p style="font-family: Georgia, 'Times New Roman', Times, serif; color: rgb(207, 5, 248); font-size: 30px;">Video Call</p>
+          <p class="start-text" style="font-size: 15px; margin-top: 0px;">Enjoy high-quality video and audio, easy-to-use controls, and a secure, private environment for your calls. </p>
+        </div>
+       </div>
+      </div>
+    
+      <footer>
+        <div class="container">
+            <p>&copy; 2024 Let's Chat. All rights reserved.</p>
+        </div>
+    </footer>
 
 
 <script src="logout.js"></script>
@@ -85,10 +136,14 @@ auth.onAuthStateChanged(user => {
   document.getElementById('logout').style.display='block';
   document.getElementById('login').style.display='none';
   document.getElementById('signup').style.display='none';
-  document.getElementById('create').style.display='none';
-  document.getElementById('create-hide').style.display='block';
-  document.getElementById('join').style.display='none';
-  document.getElementById('join-hide').style.display='block';
+  // document.getElementById('create').style.display='none';
+  // document.getElementById('create-hide').style.display='block';
+  // document.getElementById('join').style.display='none';
+  // document.getElementById('join-hide').style.display='block';
+  var create_link=document.getElementById('create');
+  create_link.href='create.html';
+  var join_link=document.getElementById('join');
+  join_link.href='join.html';
  
  
   // ...
