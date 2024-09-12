@@ -1,4 +1,3 @@
-// Assuming you have the unique code available as a variable
 const uniqueCode = sessionStorage.getItem('roomcode');
 console.log(uniqueCode);
 const username=sessionStorage.getItem('username');
