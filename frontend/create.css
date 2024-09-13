@@ -84,7 +84,7 @@
     border-radius: 10%
 }
 body{
-    background-image: url('bg_1.avif');
+    background-image: url('../images/bg_1.avif');
 }
 #name{
     width: 200px;

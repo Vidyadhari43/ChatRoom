@@ -83,7 +83,7 @@
     border-radius: 10%
 }
 body{
-    background-image: url('bg_1.avif');
+    background-image: url('../images/bg_1.avif');
 }
 #roomcode{
     width: 250px;
