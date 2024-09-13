@@ -65,6 +65,10 @@ templates = Jinja2Templates(directory="frontend")
 async def read_root(request: Request):
     return templates.TemplateResponse("home.html", {"request": request})
 
+@app.get("/logo.png", response_class=HTMLResponse)
+async def read_root(request: Request):
+    return templates.TemplateResponse("logo.png", {"request": request})
+
 
 @app.get('/create_room/unique_code_generate') #should change it to post request. request should send username
 def unique_code_gen()->dict:
