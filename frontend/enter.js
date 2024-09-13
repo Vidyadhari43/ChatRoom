@@ -77,7 +77,7 @@ auth.onAuthStateChanged(user => {
     alert(user.displayName);
     const name=user.displayName;
     // sessionStorage.setItem('username',name);
-    window.location.href="home.html";
+    window.location.href="..";
     // ...
   }).catch((error) => {
     // Handle Errors here.
@@ -165,7 +165,7 @@ document.getElementById('newbutton').addEventListener('click',async (e)=>{
       } 
       else {
         alert("Successfully registered!");
-        window.location.href = "home.html";
+        window.location.href = "..";
       }
     }
   } 
@@ -196,7 +196,7 @@ last_login:dt,
 })
 // alert('Welcome '+username);
 
-window.location.href="home.html"
+window.location.href=".."
 
 // ...
 })
@@ -278,7 +278,7 @@ document.getElementById('register').addEventListener('click', async (e) => {
             });
 
             alert("Successfully registered!");
-            window.location.href = "home.html";
+            window.location.href = "..";
           // }
         })
         .catch((error) => {
