@@ -1,45 +1,45 @@
 import string
 import secrets
 from fastapi import WebSocket
-from pymongo import MongoClient
+# from pymongo import MongoClient
 
 # mongodb connection
-mongo_client:MongoClient=MongoClient("localhost",27017)
-db=mongo_client.chatroom # type: ignore
-collection=db.username
+# mongo_client:MongoClient=MongoClient("localhost",27017)
+# db=mongo_client.chatroom # type: ignore
+# collection=db.username
 
-def UsernameExists(username:str)->bool:
-    """
-    Checks whether the username exists or not
+# def UsernameExists(username:str)->bool:
+#     """
+#     Checks whether the username exists or not
 
-    Args:
-        username (str): username of user
+#     Args:
+#         username (str): username of user
 
-    Returns:
-        bool: returns True if username already exist, else False
-    """
-    if collection.find_one({'username':username}):
-        return True
-    else:
-        # collection.insert_one({'username':username})
-        return False
+#     Returns:
+#         bool: returns True if username already exist, else False
+#     """
+#     if collection.find_one({'username':username}):
+#         return True
+#     else:
+#         # collection.insert_one({'username':username})
+#         return False
 
-def InsertUsername(username:str)->bool:
-    """
-    Inserts the username into database
+# def InsertUsername(username:str)->bool:
+#     """
+#     Inserts the username into database
 
-    Args:
-        username (str): username of user
+#     Args:
+#         username (str): username of user
 
-    Returns:
-        bool: returns True if insertion of username into database is successful, else False
-    """
-    try:
-        collection.insert_one({'username':username})
-        return True
-    except Exception as e:
-        print(e)
-        return False
+#     Returns:
+#         bool: returns True if insertion of username into database is successful, else False
+#     """
+#     try:
+#         collection.insert_one({'username':username})
+#         return True
+#     except Exception as e:
+#         print(e)
+#         return False
 
 def GenerateRandomCode(current_list:list[str])->str:
     """

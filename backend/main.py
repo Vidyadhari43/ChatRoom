@@ -16,38 +16,38 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers
 )
 
-@app.post('/signup/unique_username/{username}')
-def unique_username(username:str)->dict:
-    """
-    Checks whether the username is unique or not. That is the username previously used by any other user.
+# @app.post('/signup/unique_username/{username}')
+# def unique_username(username:str)->dict:
+#     """
+#     Checks whether the username is unique or not. That is the username previously used by any other user.
 
-    Args:
-        username (str): Requested username of the user
+#     Args:
+#         username (str): Requested username of the user
 
-    Returns:
-        dict: Returns fail in the status if the username already exist. Else returns success.
-    """
-    if api_functions.UsernameExists(username):
-        return {'status':'fail','msg':'username already exist'}
-    else:
-        return {'status':'success','msg':'unique username'}
+#     Returns:
+#         dict: Returns fail in the status if the username already exist. Else returns success.
+#     """
+#     if api_functions.UsernameExists(username):
+#         return {'status':'fail','msg':'username already exist'}
+#     else:
+#         return {'status':'success','msg':'unique username'}
  
     
-@app.post('/signup/insert_unique_username/{username}')
-def insert_unique_username(username:str)->dict:
-    """
-    Insert username into database
+# @app.post('/signup/insert_unique_username/{username}')
+# def insert_unique_username(username:str)->dict:
+#     """
+#     Insert username into database
 
-    Args:
-        username (str): username of the user
+#     Args:
+#         username (str): username of the user
 
-    Returns:
-        dict: Returns fail as status key value if the insertion into database fails. Else returns success.
-    """
-    if api_functions.InsertUsername(username):
-        return {'status':'success','msg':'username inserted'}
-    else:
-        return {'status':'fail','msg':'username insertion failed'}
+#     Returns:
+#         dict: Returns fail as status key value if the insertion into database fails. Else returns success.
+#     """
+#     if api_functions.InsertUsername(username):
+#         return {'status':'success','msg':'username inserted'}
+#     else:
+#         return {'status':'fail','msg':'username insertion failed'}
 
 
 @app.get('/create_room/unique_code_generate') #should change it to post request. request should send username
