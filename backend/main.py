@@ -1,11 +1,15 @@
 from collections import defaultdict
 from fastapi import FastAPI, WebSocket,WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
-
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+from starlette.requests import Request
+    
 import backend.api_functions as api_functions
 
 current_list:list[str]=[]
 users:dict[str,list[WebSocket]]=defaultdict(list)
+
 app=FastAPI()
 
 app.add_middleware(
@@ -49,17 +53,16 @@ app.add_middleware(
 #     else:
 #         return {'status':'fail','msg':'username insertion failed'}
 
-@app.get('/') #should change it to post request. request should send username
-def start_func()->dict:
-    # """
-    # Creates the unique code which is not in use at present
 
-    # Returns:
-    #     dict: json response for get request
-    # """
-    # unique_code:str=api_functions.GenerateRandomCode(current_list)
-    # print(current_list)
-    return {'status':'success'}
+
+# Set up the templates folder
+templates = Jinja2Templates(directory="frontend")
+
+# Define the route for the homepage (or the first HTML file)
+@app.get("/", response_class=HTMLResponse)
+async def read_root(request: Request):
+    return templates.TemplateResponse("home.html", {"request": request})
+
 
 @app.get('/create_room/unique_code_generate') #should change it to post request. request should send username
 def unique_code_gen()->dict:
