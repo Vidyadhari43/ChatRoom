@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from starlette.requests import Request
+from fastapi.staticfiles import StaticFiles
     
 import backend.api_functions as api_functions
 
@@ -19,6 +20,7 @@ app.add_middleware(
     allow_methods=["*"],  # Allows all methods
     allow_headers=["*"],  # Allows all headers
 )
+app.mount("/frontend", StaticFiles(directory="frontend"), name="frontend")
 
 # @app.post('/signup/unique_username/{username}')
 # def unique_username(username:str)->dict:
