@@ -1,7 +1,7 @@
 async function myFunc(){
     try{
         var ip_roomcode=document.getElementById('roomcode').value;
-        var url=`http://my-fastapi-app.onrender.com:8000/join_room/enter_code/${ip_roomcode}`;
+        var url=`https://my-fastapi-app.onrender.com:8000/join_room/enter_code/${ip_roomcode}`;
         let response=await fetch(url,{
             method:'POST',
             headers: {

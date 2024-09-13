@@ -1,7 +1,7 @@
 const uniqueCode = sessionStorage.getItem('roomcode');
 console.log(uniqueCode);
 const username=sessionStorage.getItem('username');
-const wsUrl = `ws://my-fastapi-app.onrender.com:8000/enter_room/${uniqueCode}/${username}`;
+const wsUrl = `wss://my-fastapi-app.onrender.com:8000/enter_room/${uniqueCode}/${username}`;
 
 // Initialize the WebSocket connection
 const socket = new WebSocket(wsUrl);
