@@ -21,6 +21,7 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers
 )
 app.mount("/images", StaticFiles(directory="images"), name="images")
+app.mount("/frontend", StaticFiles(directory="frontend"), name="frontend")
 
 # @app.post('/signup/unique_username/{username}')
 # def unique_username(username:str)->dict:
