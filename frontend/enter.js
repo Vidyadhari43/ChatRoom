@@ -130,8 +130,8 @@ var googleBtnsig=document.getElementById('google-btn-sig');
 
 document.getElementById('newbutton').addEventListener('click',async (e)=>{
   const username = await document.getElementById('sig-name').value;
-  const checkUsernameUrl = `http://0.0.0.0:8000/signup/unique_username/${username}`;
-  const insertUsernameUrl = `http://0.0.0.0:8000/signup/insert_unique_username/${username}`;
+  const checkUsernameUrl = `https://my-fastapi-app.onrender.com:8000/signup/unique_username/${username}`;
+  const insertUsernameUrl = `https://my-fastapi-app.onrender.com:8000/signup/insert_unique_username/${username}`;
   try {
     // Check if the username is unique
     let response = await fetch(checkUsernameUrl, {

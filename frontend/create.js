@@ -5,7 +5,7 @@ async function myFunc() {
         let roomcode = document.getElementById('roomcode');
         let cpy=document.getElementById('cpy-btn');
         // URL for the API request
-        let url = "http://0.0.0.0:8000/create_room/unique_code_generate";
+        let url = "https://my-fastapi-app.onrender.com:8000/create_room/unique_code_generate";
 
         // Make the API request and wait for the response
         let response = await fetch(url);
