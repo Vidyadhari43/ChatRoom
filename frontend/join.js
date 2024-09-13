@@ -1,7 +1,7 @@
 async function myFunc(){
     try{
         var ip_roomcode=document.getElementById('roomcode').value;
-        var url=`http://127.0.0.1:8000/join_room/enter_code/${ip_roomcode}`;
+        var url=`http://0.0.0.0:8000/join_room/enter_code/${ip_roomcode}`;
         let response=await fetch(url,{
             method:'POST',
             headers: {

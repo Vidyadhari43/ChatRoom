@@ -130,8 +130,8 @@ var googleBtnsig=document.getElementById('google-btn-sig');
 
 document.getElementById('newbutton').addEventListener('click',async (e)=>{
   const username = await document.getElementById('sig-name').value;
-  const checkUsernameUrl = `http://127.0.0.1:8000/signup/unique_username/${username}`;
-  const insertUsernameUrl = `http://127.0.0.1:8000/signup/insert_unique_username/${username}`;
+  const checkUsernameUrl = `http://0.0.0.0:8000/signup/unique_username/${username}`;
+  const insertUsernameUrl = `http://0.0.0.0:8000/signup/insert_unique_username/${username}`;
   try {
     // Check if the username is unique
     let response = await fetch(checkUsernameUrl, {
@@ -229,25 +229,25 @@ document.getElementById('register').addEventListener('click', async (e) => {
   const email = document.getElementById('sig-mail').value;
   const password = document.getElementById('sig-password').value;
 
-  const checkUsernameUrl = `http://127.0.0.1:8000/signup/unique_username/${username}`;
-  const insertUsernameUrl = `http://127.0.0.1:8000/signup/insert_unique_username/${username}`;
+  // const checkUsernameUrl = `http://0.0.0.0:8000/signup/unique_username/${username}`;
+  // const insertUsernameUrl = `http://0.0.0.0:8000/signup/insert_unique_username/${username}`;
 
   try {
     // Check if the username is unique
-    let response = await fetch(checkUsernameUrl, {
-      method: 'POST',
-      headers: {
-        "Content-type": "application/json; charset=UTF-8"
-      }
-    });
+    // let response = await fetch(checkUsernameUrl, {
+    //   method: 'POST',
+    //   headers: {
+    //     "Content-type": "application/json; charset=UTF-8"
+    //   }
+    // });
 
-    let data = await response.json();
-    console.log(data);
+    // let data = await response.json();
+    // console.log(data);
 
-    if (data.status === 'fail') {
-      alert(data.msg);
-    } 
-    else {
+    // if (data.status === 'fail') {
+    //   alert(data.msg);
+    // } 
+    // else {
       // Username is unique, proceed with Firebase Authentication
       // sessionStorage.setItem('username', username);
 
@@ -256,35 +256,36 @@ document.getElementById('register').addEventListener('click', async (e) => {
           const user = userCredential.user;
 
           // Insert the unique username in the backend
-          let response = await fetch(insertUsernameUrl, {
-            method: 'POST',
-            headers: {
-              "Content-type": "application/json; charset=UTF-8"
-            }
-          });
+          // let response = await fetch(insertUsernameUrl, {
+          //   method: 'POST',
+          //   headers: {
+          //     "Content-type": "application/json; charset=UTF-8"
+          //   }
+          // });
 
-          let data = await response.json();
-          console.log(data.msg);
+          // let data = await response.json();
+          // console.log(data.msg);
 
-          if (data.status === 'fail') {
-            throw new Error(data.msg);
-          } else {
+          // if (data.status === 'fail') {
+          //   throw new Error(data.msg);
+          // } 
+          // else {
             // Store additional user data in Firebase Realtime Database
             
             await set(ref(database, 'users/' + user.uid), {
-              username: username,
+              // username: username,
               email: email
             });
 
             alert("Successfully registered!");
             window.location.href = "home.html";
-          }
+          // }
         })
         .catch((error) => {
           console.error('Error during user creation:', error);
           alert(error.message);
         });
-    }
+    // }
   } 
   catch (error) {
     console.error('Error:', error);
