@@ -130,44 +130,44 @@ var googleBtnsig=document.getElementById('google-btn-sig');
 
 document.getElementById('newbutton').addEventListener('click',async (e)=>{
   const username = await document.getElementById('sig-name').value;
-  const checkUsernameUrl = `https://my-fastapi-app.onrender.com:8000/signup/unique_username/${username}`;
-  const insertUsernameUrl = `https://my-fastapi-app.onrender.com:8000/signup/insert_unique_username/${username}`;
+  // const checkUsernameUrl = `http://my-fastapi-app.onrender.com:8000/signup/unique_username/${username}`;
+  // const insertUsernameUrl = `http://my-fastapi-app.onrender.com:8000/signup/insert_unique_username/${username}`;
   try {
     // Check if the username is unique
-    let response = await fetch(checkUsernameUrl, {
-      method: 'POST',
-      headers: {
-        "Content-type": "application/json; charset=UTF-8"
-      }
-    });
+    // let response = await fetch(checkUsernameUrl, {
+    //   method: 'POST',
+    //   headers: {
+    //     "Content-type": "application/json; charset=UTF-8"
+    //   }
+    // });
 
-    let data = await response.json();
-    console.log(data);
+    // let data = await response.json();
+    // console.log(data);
 
-    if (data.status === 'fail') {
-      alert(data.msg);
-    } 
-    else {
+    // if (data.status === 'fail') {
+    //   alert(data.msg);
+    // } 
+    // else {
       // sessionStorage.setItem('username', username);
 
-      let response = await fetch(insertUsernameUrl, {
-        method: 'POST',
-        headers: {
-          "Content-type": "application/json; charset=UTF-8"
-        }
-      });
+      // let response = await fetch(insertUsernameUrl, {
+      //   method: 'POST',
+      //   headers: {
+      //     "Content-type": "application/json; charset=UTF-8"
+      //   }
+      // });
 
-      let data = await response.json();
-      console.log(data.msg);
+      // let data = await response.json();
+      // console.log(data.msg);
 
-      if (data.status === 'fail') {
-        throw new Error(data.msg);
-      } 
-      else {
+      // if (data.status === 'fail') {
+      //   throw new Error(data.msg);
+      // } 
+      // else {
         alert("Successfully registered!");
         window.location.href = "..";
-      }
-    }
+      // }
+    // }
   } 
   catch (error) {
     console.error('Error:', error);
