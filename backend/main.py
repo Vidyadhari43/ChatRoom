@@ -2,7 +2,7 @@ from collections import defaultdict
 from fastapi import FastAPI, WebSocket,WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 
-import api_functions
+import backend.api_functions as api_functions
 
 current_list:list[str]=[]
 users:dict[str,list[WebSocket]]=defaultdict(list)
