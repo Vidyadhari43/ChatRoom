@@ -30,7 +30,10 @@ async function myFunc() {
 }
 
 function chat(){
-    window.location.href="chat.html";
+    const username=document.getElementById('username').value;
+    sessionStorage.setItem('username',username);
+    if(!username) alert("Enter username");
+     else window.location.href="chat.html";
     
     // var code=document.getElementById('')
 }
@@ -42,11 +45,12 @@ function copyOutput() {
   
     navigator.clipboard.writeText(copyText.value);
   }
-  document.addEventListener('DOMContentLoaded', (event) => {
-    const username = sessionStorage.getItem('username');
-    if (username) {
-        document.getElementById('user-greeting').textContent = `Welcome, ${username}!`;
-    } else {
-        document.getElementById('user-greeting').textContent = 'No username found!';
-    }
-});
+//   document.addEventListener('DOMContentLoaded', (event) => {
+//     const username = sessionStorage.getItem('username');
+//     if (username) {
+//         document.getElementById('user-greeting').textContent = `Welcome, ${username}!`;
+//     } else {
+//         document.getElementById('user-greeting').textContent = 'No username found!';
+//     }
+// });
+

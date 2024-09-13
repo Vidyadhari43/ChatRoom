@@ -10,6 +10,10 @@ async function myFunc(){
             // ,
             // body: JSON.stringify({ unique_code: ip_roomcode })
         });
+        const username=document.getElementById('username').value;
+    sessionStorage.setItem('username',username);
+    if(!username) alert("Enter username");
+     
         let data = await response.json();
         await console.log(data);
         if(data.status==='fail'){

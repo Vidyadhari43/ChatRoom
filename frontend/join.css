@@ -86,8 +86,13 @@ body{
     background-image: url('bg_1.avif');
 }
 #roomcode{
-    width: 200px;
+    width: 250px;
    position: relative;
+}
+#username{
+    width: 250px;
+    margin-bottom: 5px;
+    position: relative;
 }
 .code{
     background-color: white;

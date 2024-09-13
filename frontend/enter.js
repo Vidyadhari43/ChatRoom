@@ -76,7 +76,7 @@ auth.onAuthStateChanged(user => {
     // IdP data available using getAdditionalUserInfo(result)
     alert(user.displayName);
     const name=user.displayName;
-    sessionStorage.setItem('username',name);
+    // sessionStorage.setItem('username',name);
     window.location.href="home.html";
     // ...
   }).catch((error) => {
@@ -117,7 +117,7 @@ var googleBtnsig=document.getElementById('google-btn-sig');
     // IdP data available using getAdditionalUserInfo(result)
     alert(user.displayName);
     const name=user.displayName;
-    sessionStorage.setItem('username',name);
+    // sessionStorage.setItem('username',name);
    // window.location.href="home.html";
     // ...
   }).catch((error) => {
@@ -148,7 +148,7 @@ document.getElementById('newbutton').addEventListener('click',async (e)=>{
       alert(data.msg);
     } 
     else {
-      sessionStorage.setItem('username', username);
+      // sessionStorage.setItem('username', username);
 
       let response = await fetch(insertUsernameUrl, {
         method: 'POST',
@@ -178,8 +178,8 @@ document.getElementById('newbutton').addEventListener('click',async (e)=>{
 
 document.getElementById('login').addEventListener('click',(e)=>{
 
-const username=document.getElementById('log-name').value;
-sessionStorage.setItem('username',username);
+// const username=document.getElementById('log-name').value;
+// sessionStorage.setItem('username',username);
 
 var email=document.getElementById('log-mail').value;
 
@@ -194,7 +194,7 @@ const dt=new Date();
 update(ref(database,'users/'+user.uid),{
 last_login:dt,
 })
-alert('Welcome '+username);
+// alert('Welcome '+username);
 
 window.location.href="home.html"
 
@@ -225,7 +225,7 @@ document.getElementById('forgotpass').addEventListener("click",ForgotPassword);
 document.getElementById('register').addEventListener('click', async (e) => {
   e.preventDefault();
 
-  const username = document.getElementById('sig-name').value;
+  // const username = document.getElementById('sig-name').value;
   const email = document.getElementById('sig-mail').value;
   const password = document.getElementById('sig-password').value;
 
@@ -249,7 +249,7 @@ document.getElementById('register').addEventListener('click', async (e) => {
     } 
     else {
       // Username is unique, proceed with Firebase Authentication
-      sessionStorage.setItem('username', username);
+      // sessionStorage.setItem('username', username);
 
       createUserWithEmailAndPassword(auth, email, password)
         .then(async (userCredential) => {
