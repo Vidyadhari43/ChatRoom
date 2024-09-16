@@ -64,7 +64,7 @@ input.addEventListener("keypress", function(event) {
       // Trigger the button element with a click
       document.getElementById("sendButton").click();
     }
-  });
+});
 
 document.getElementById('sendButton').addEventListener('click', function() {
     const messageInput = document.getElementById('messageInput');
@@ -85,7 +85,6 @@ document.getElementById('sendButton').addEventListener('click', function() {
 });
 document.getElementById('sendFileButton').addEventListener('click', function() {
     const fileInput = document.getElementById('fileInput').files[0];
-    // const message = FileInput.files[0];
     if(!fileInput){
         alert('Please select a file.');
         return;
@@ -99,10 +98,30 @@ document.getElementById('sendFileButton').addEventListener('click', function() {
             data: base64Data
         };
 
-        ws.send(JSON.stringify(message));
+        socket.send(JSON.stringify(message));
     };
-    reader.readAsBinaryString(fileInput);
+    reader.readAsArrayBuffer(fileInput);
 });
+
+// document.getElementById('sendFileButton').addEventListener('click', function() {
+//     const fileInput = document.getElementById('fileInput').files[0];
+//     if (!fileInput) {
+//         alert('Please select a file.');
+//         return;
+//     }
+//     const reader = new FileReader();
+//     reader.onload = () => {
+//         const base64Data = btoa(String.fromCharCode(...new Uint8Array(reader.result)));
+//         const message = {
+//             type: "file",
+//             file_name: fileInput.name,
+//             data: base64Data
+//         };
+
+//         socket.send(JSON.stringify(message)); // Fixed variable name
+//     };
+//     reader.readAsArrayBuffer(fileInput); // Updated method
+// });
 
 function handleFile(fileName, fileData, sent_username) {
     const byteCharacters = atob(fileData);

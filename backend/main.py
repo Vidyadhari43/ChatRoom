@@ -132,22 +132,23 @@ async def enter_room(websocket:WebSocket,unique_code:str,username:str)->None:
         await websocket.accept()
         users[unique_code].append(websocket)
         await api_functions.broadcast_msg(username,'joined the chat',users,unique_code,'join')
+        
         while True:
-            print('while')
+            # print('while')
             data:str = await websocket.receive_text()
             message = json.loads(data)
-            print('after json.loads')
+            # print('after json.loads')
             message_type = message.get("type")
-            print('msg type')
+            # print('msg type')
             if message_type=="text":
-                print('text')
+                # print('text')
                 content = message.get("content")
-                await api_functions.broadcast_msg(username,data.content,users,unique_code,'text')
+                await api_functions.broadcast_msg(username,content,users,unique_code,'text')
             elif message_type=="file":
-                print('file')
+                # print('file')
                 file_name = message.get("file_name")
-                # file_data = base64.b64decode(message.get("data"))
-                data={'sent_username':username,'data':data.content,'file_name':file_name,'action':'file'}
+                file_data = message.get("content")
+                data={'sent_username':username,'data':file_data,'file_name':file_name,'action':'file'}
                 for socket in users[unique_code]:
                     await socket.send_json(data)
                 
@@ -157,28 +158,7 @@ async def enter_room(websocket:WebSocket,unique_code:str,username:str)->None:
     # return {'status':'disconnected'}
     except Exception as e:
         return {'status':e}
-
-# @app.websocket('sendfile/{unique_code}/{username}/{file_name}')
-# async def sendfile(websocket:WebSocket,unique_code:str,username:str,file_name:str)->None:
-#     try:
-#         await websocket.accept()
-#         # file_save_path:str=get_downloads_folder()/f"{file_name}"
-#         while True:
-#             data=await websocket.receive_bytes()
-#             for socket in users[unique_code]:
-#                 if socket != websocket:
-#                     await socket.send_bytes(data)
-                    
-#     except WebSocketDisconnect:
-#         #remove from the list
-#         await api_functions.user_exit(websocket,users,unique_code,current_list,username)
     
-#     except Exception as e:
-#         return {'status':e}     
-            
-            
-        # await api_functions.broadcast_file(username,)
-
 #should add an end point for leave button.
 
 
