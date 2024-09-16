@@ -132,12 +132,12 @@ function handleFile(fileName, fileData, sent_username) {
     // Append the link to the messages div or another container element
     const messagesDiv = document.getElementById('messages');
     if(sent_username===username){
-        newMessage.classList.add('my-message');
+        fileContainer.classList.add('my-message');
     }
     else {
-        newMessage.classList.add('other-messsage');
+        fileContainer.classList.add('other-messsage');
     }
-    newMessage.classList.add('message');
+    fileContainer.classList.add('message');
     messagesDiv.appendChild(fileContainer);
     
     // Optional: Log a message for debugging
