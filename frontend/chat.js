@@ -109,6 +109,7 @@ document.getElementById('sendFileButton').addEventListener('click', function() {
 function handleFile(fileName, fileData, sent_username) {
     const byteCharacters = atob(fileData); //base-64 string to binary string conversion
     const byteArrays = [];
+    
     for (let offset = 0; offset < byteCharacters.length; offset += 512) {
         const slice = byteCharacters.slice(offset, offset + 512);
         const byteNumbers = new Array(slice.length);
