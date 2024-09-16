@@ -98,7 +98,7 @@ update(ref(database,'users/'+user.uid),{
 last_login:dt,
 })
 alert('Welcome '+username);
-window.location.href="home.html"
+window.location.href="https://chatroom-fksh.onrender.com"
 
 // ...
 })
