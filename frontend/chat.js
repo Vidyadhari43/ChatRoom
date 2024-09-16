@@ -20,6 +20,7 @@ socket.onmessage = function(event) {
     const username = sessionStorage.getItem('username');
     if(recv_msg.action=="file"){
         handleFile(recv_msg.file_name,recv_msg.data,recv_msg.sent_username);
+        // newMessage.textContent = recv_msg.sent_username+': '+recv_msg.file_name;
     }
     else
     // (recv_msg.action=="text" || recv_msg.action=="join" || recv_msg.action=="left")
@@ -101,30 +102,12 @@ document.getElementById('sendFileButton').addEventListener('click', function() {
         socket.send(JSON.stringify(message));
     };
     reader.readAsArrayBuffer(fileInput);
+    document.getElementById('fileInput').files[0]=''; //clear the input
 });
 
-// document.getElementById('sendFileButton').addEventListener('click', function() {
-//     const fileInput = document.getElementById('fileInput').files[0];
-//     if (!fileInput) {
-//         alert('Please select a file.');
-//         return;
-//     }
-//     const reader = new FileReader();
-//     reader.onload = () => {
-//         const base64Data = btoa(String.fromCharCode(...new Uint8Array(reader.result)));
-//         const message = {
-//             type: "file",
-//             file_name: fileInput.name,
-//             data: base64Data
-//         };
-
-//         socket.send(JSON.stringify(message)); // Fixed variable name
-//     };
-//     reader.readAsArrayBuffer(fileInput); // Updated method
-// });
 
 function handleFile(fileName, fileData, sent_username) {
-    const byteCharacters = atob(fileData);
+    const byteCharacters = atob(fileData); //base-64 string to binary string conversion
     const byteArrays = [];
     for (let offset = 0; offset < byteCharacters.length; offset += 512) {
         const slice = byteCharacters.slice(offset, offset + 512);
@@ -139,8 +122,25 @@ function handleFile(fileName, fileData, sent_username) {
     const a = document.createElement('a');
     a.href = url;
     a.download = fileName;
-    a.click();
-    URL.revokeObjectURL(url); // Clean up the URL object
+    // a.click();
+    a.textContent = `Download ${fileName}`;
+    
+    // Optional: Create a div or any other element to show the download link
+    const fileContainer = document.createElement('div');
+    fileContainer.appendChild(a);
+
+    // Append the link to the messages div or another container element
+    const messagesDiv = document.getElementById('messages');
+    if(sent_username===username){
+        newMessage.classList.add('my-message');
+    }
+    else {
+        newMessage.classList.add('other-messsage');
+    }
+    newMessage.classList.add('message');
+    messagesDiv.appendChild(fileContainer);
+    
+    // Optional: Log a message for debugging
     console.log(`Received file: ${fileName}`);
 }
 
