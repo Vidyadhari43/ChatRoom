@@ -26,16 +26,16 @@ app.add_middleware(
 app.mount("/images", StaticFiles(directory="images"), name="images")
 app.mount("/frontend", StaticFiles(directory="frontend"), name="frontend")
 
-# def get_downloads_folder()->str:
-#     user_home = Path.home()  # Get the user's home directory
-#     system = platform.system()  # Get the current OS (Windows, Linux, macOS)
+def get_downloads_folder()->str:
+    user_home = Path.home()  # Get the user's home directory
+    system = platform.system()  # Get the current OS (Windows, Linux, macOS)
     
-#     if system == "Windows":
-#         downloads_folder = user_home / "Downloads"
-#     else:  # macOS and Linux
-#         downloads_folder = user_home / "Downloads"
+    if system == "Windows":
+        downloads_folder = user_home / "Downloads"
+    else:  # macOS and Linux
+        downloads_folder = user_home / "Downloads"
     
-#     return downloads_folder
+    return downloads_folder
 
 # @app.post('/signup/unique_username/{username}')
 # def unique_username(username:str)->dict:
@@ -158,6 +158,14 @@ async def enter_room(websocket:WebSocket,unique_code:str,username:str)->None:
     # return {'status':'disconnected'}
     except Exception as e:
         return {'status':e}
+    
+@app.post('/file_path/{file_name}')
+def get_filepath(file_name:str):
+    try:
+        fp:str=get_downloads_folder()+'/file_name'
+        return {'status':'success','file_path':fp}
+    except Exception as e:
+        return {'status':'fail','error':e}
     
 #should add an end point for leave button.
 
