@@ -69,7 +69,7 @@ input.addEventListener("keypress", function(event) {
 document.getElementById('sendButton').addEventListener('click', function() {
     const messageInput = document.getElementById('messageInput');
     const message = messageInput.value;
-    if (message() === "") {
+    if (message.trim() === "") {
         alert('Please enter a message.');
         return;
     }
