@@ -102,7 +102,7 @@ document.getElementById('sendFileButton').addEventListener('click', function() {
         socket.send(JSON.stringify(message));
     };
     reader.readAsArrayBuffer(fileInput);
-    document.getElementById('fileInput').files[0]=''; //clear the input
+    document.getElementById('fileInput').value=''; //clear the input
 });
 
 
