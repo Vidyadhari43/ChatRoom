@@ -1,3 +1,4 @@
+import base64
 from collections import defaultdict
 from fastapi import FastAPI, WebSocket,WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
@@ -5,8 +6,10 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from starlette.requests import Request
 from fastapi.staticfiles import StaticFiles
-    
+from pathlib import Path
+
 import backend.api_functions as api_functions
+import json
 
 current_list:list[str]=[]
 users:dict[str,list[WebSocket]]=defaultdict(list)
@@ -22,6 +25,17 @@ app.add_middleware(
 )
 app.mount("/images", StaticFiles(directory="images"), name="images")
 app.mount("/frontend", StaticFiles(directory="frontend"), name="frontend")
+
+# def get_downloads_folder()->str:
+#     user_home = Path.home()  # Get the user's home directory
+#     system = platform.system()  # Get the current OS (Windows, Linux, macOS)
+    
+#     if system == "Windows":
+#         downloads_folder = user_home / "Downloads"
+#     else:  # macOS and Linux
+#         downloads_folder = user_home / "Downloads"
+    
+#     return downloads_folder
 
 # @app.post('/signup/unique_username/{username}')
 # def unique_username(username:str)->dict:
@@ -104,7 +118,7 @@ def join_room(unique_code:str)->dict:
 @app.websocket('/enter_room/{unique_code}/{username}')
 async def enter_room(websocket:WebSocket,unique_code:str,username:str)->None:
     """
-    Send and display the messages sent by the users joined with same roomcode.
+    Send and display the messages,files,image,videos sent by the users joined with same roomcode.
 
     Args:
         websocket (WebSocket): websocket value from which the request sent to the server.
@@ -120,15 +134,49 @@ async def enter_room(websocket:WebSocket,unique_code:str,username:str)->None:
         await api_functions.broadcast_msg(username,'joined the chat',users,unique_code,'join')
         while True:
             data:str = await websocket.receive_text()
-            await api_functions.broadcast_msg(username,data,users,unique_code,'text')
+            message = json.loads(data)
+            message_type = message.get("type")
+            if message_type=="text":
+                content = message.get("content")
+                await api_functions.broadcast_msg(username,data.content,users,unique_code,'text')
+            elif message_type=="file":
+                file_name = message.get("file_name")
+                # file_data = base64.b64decode(message.get("data"))
+                data={'sent_username':username,'data':data.content,'file_name':file_name,'action':'file'}
+                for socket in users[unique_code]:
+                    await socket.send_json(data)
+                
     except WebSocketDisconnect:
         #remove from the list
         await api_functions.user_exit(websocket,users,unique_code,current_list,username)
     # return {'status':'disconnected'}
     except Exception as e:
         return {'status':e}
+
+# @app.websocket('sendfile/{unique_code}/{username}/{file_name}')
+# async def sendfile(websocket:WebSocket,unique_code:str,username:str,file_name:str)->None:
+#     try:
+#         await websocket.accept()
+#         # file_save_path:str=get_downloads_folder()/f"{file_name}"
+#         while True:
+#             data=await websocket.receive_bytes()
+#             for socket in users[unique_code]:
+#                 if socket != websocket:
+#                     await socket.send_bytes(data)
+                    
+#     except WebSocketDisconnect:
+#         #remove from the list
+#         await api_functions.user_exit(websocket,users,unique_code,current_list,username)
     
+#     except Exception as e:
+#         return {'status':e}     
+            
+            
+        # await api_functions.broadcast_file(username,)
+
 #should add an end point for leave button.
+
+
         
 
 

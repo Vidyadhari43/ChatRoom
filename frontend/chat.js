@@ -18,22 +18,29 @@ socket.onmessage = function(event) {
     const messagesDiv = document.getElementById('messages');
     const newMessage = document.createElement('div');
     const username = sessionStorage.getItem('username');
-    newMessage.textContent = recv_msg.sent_username+': '+recv_msg.msg;
-    // use recv_msg.action 
-    // action='join' for joined the chat, action='left' for left the chat, action='text' for other messages
-    console.log('action: '+ recv_msg.action);
-    if (recv_msg.action==='join' || recv_msg.action==='left'){
-        newMessage.classList.add('centre');
+    if(recv_msg.action=="file"){
+        handleFile(recv_msg.file_name,recv_msg.data,recv_msg.sent_username);
     }
-    if(recv_msg.sent_username===username){
-        newMessage.classList.add('my-message');
+    else
+    // (recv_msg.action=="text" || recv_msg.action=="join" || recv_msg.action=="left")
+    {
+        newMessage.textContent = recv_msg.sent_username+': '+recv_msg.msg;
+        // use recv_msg.action 
+        // action='join' for joined the chat, action='left' for left the chat, action='text' for other messages
+        console.log('action: '+ recv_msg.action);
+        if (recv_msg.action==='join' || recv_msg.action==='left'){
+            newMessage.classList.add('centre');
+        }
+        if(recv_msg.sent_username===username){
+            newMessage.classList.add('my-message');
 
+        }
+        else {
+            newMessage.classList.add('other-messsage');
+        }
+        newMessage.classList.add('message');
+        messagesDiv.appendChild(newMessage);
     }
-    else {
-        newMessage.classList.add('other-messsage');
-    }
-    newMessage.classList.add('message');
-    messagesDiv.appendChild(newMessage);
 };
 
 // Event handler for connection close
@@ -62,12 +69,59 @@ input.addEventListener("keypress", function(event) {
 document.getElementById('sendButton').addEventListener('click', function() {
     const messageInput = document.getElementById('messageInput');
     const message = messageInput.value;
-    if (message) {
-        socket.send(message);
+    if (message() === "") {
+        alert('Please enter a message.');
+        return;
+    }
+    else {
+        const msg={
+            type:"text",
+            content:message
+        };
+        socket.send(JSON.stringify(msg));
         messageInput.value = ''; // Clear the input box after sending
-    } else {
-        alert('Please enter a message');
     }
 });
+document.getElementById('sendFileButton').addEventListener('click', function() {
+    const fileInput = document.getElementById('fileInput').files[0];
+    // const message = FileInput.files[0];
+    if(!fileInput){
+        alert('Please select a file.');
+        return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+        const base64Data = btoa(reader.result);
+        const message = {
+            type: "file",
+            file_name: fileInput.name,
+            data: base64Data
+        };
+
+        ws.send(JSON.stringify(message));
+    };
+    reader.readAsBinaryString(fileInput);
+});
+
+function handleFile(fileName, fileData, sent_username) {
+    const byteCharacters = atob(fileData);
+    const byteArrays = [];
+    for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+        const slice = byteCharacters.slice(offset, offset + 512);
+        const byteNumbers = new Array(slice.length);
+        for (let i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+        }
+        byteArrays.push(new Uint8Array(byteNumbers));
+    }
+    const blob = new Blob(byteArrays, { type: 'application/octet-stream' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fileName;
+    a.click();
+    URL.revokeObjectURL(url); // Clean up the URL object
+    console.log(`Received file: ${fileName}`);
+}
 
 
