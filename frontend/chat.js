@@ -74,6 +74,7 @@ document.getElementById('sendButton').addEventListener('click', function() {
         return;
     }
     else {
+        console.log('message sent- ',message);
         const msg={
             type:"text",
             content:message

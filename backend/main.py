@@ -133,13 +133,18 @@ async def enter_room(websocket:WebSocket,unique_code:str,username:str)->None:
         users[unique_code].append(websocket)
         await api_functions.broadcast_msg(username,'joined the chat',users,unique_code,'join')
         while True:
+            print('while')
             data:str = await websocket.receive_text()
             message = json.loads(data)
+            print('after json.loads')
             message_type = message.get("type")
+            print('msg type')
             if message_type=="text":
+                print('text')
                 content = message.get("content")
                 await api_functions.broadcast_msg(username,data.content,users,unique_code,'text')
             elif message_type=="file":
+                print('file')
                 file_name = message.get("file_name")
                 # file_data = base64.b64decode(message.get("data"))
                 data={'sent_username':username,'data':data.content,'file_name':file_name,'action':'file'}
