@@ -222,7 +222,7 @@ async function handleFile(fileName, fileData, sent_username) {
         console.log(`User clicked to download: ${fileName}`);
 
         // Proceed with download after logging
-        // a.click();
+        a.click();
 
         // Optionally, fetch the file path from the server after the click
         const file_url = `https://chatroom-fksh.onrender.com/file_path/${uniqueFileName}`;
