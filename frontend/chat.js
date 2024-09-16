@@ -177,10 +177,86 @@ document.getElementById('sendFileButton').addEventListener('click', function() {
 // }
 
 
-async function handleFile(fileName, fileData, sent_username) {
-    const byteCharacters = atob(fileData); // base-64 string to binary string conversion
-    const byteArrays = [];
+// async function handleFile(fileName, fileData, sent_username) {
+//     const byteCharacters = atob(fileData); // base-64 string to binary string conversion
+//     const byteArrays = [];
 
+//     for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+//         const slice = byteCharacters.slice(offset, offset + 512);
+//         const byteNumbers = new Array(slice.length);
+//         for (let i = 0; i < slice.length; i++) {
+//             byteNumbers[i] = slice.charCodeAt(i);
+//         }
+//         byteArrays.push(new Uint8Array(byteNumbers));
+//     }
+
+//     const timestamp = new Date().getTime();
+//     const uniqueFileName = `${timestamp}_${fileName}`;
+
+//     const blob = new Blob(byteArrays, { type: 'application/octet-stream' });
+//     const url = URL.createObjectURL(blob);
+//     const a = document.createElement('a');
+//     a.href = url;
+//     a.download = uniqueFileName;
+//     a.textContent = `Download ${fileName}`;
+
+//     // Optional: Create a div to show the download link
+//     const fileContainer = document.createElement('div');
+//     fileContainer.appendChild(a);
+
+//     // Append the link to the messages div or another container element
+//     const messagesDiv = document.getElementById('messages');
+//     if (sent_username === username) {
+//         fileContainer.classList.add('my-message');
+//     } else {
+//         fileContainer.classList.add('other-message');
+//     }
+//     fileContainer.classList.add('message');
+//     messagesDiv.appendChild(fileContainer);
+
+//     // Add event listener for when the link is clicked
+//     a.addEventListener('click', async (event) => {
+//         event.preventDefault(); // Prevent default action to control the flow
+
+//         // Optional: Log or perform any action before downloading
+//         console.log(`User clicked to download: ${fileName}`);
+
+//         // Proceed with download after logging
+//         // a.click();
+
+//         // Optionally, fetch the file path from the server after the click
+//         const file_url = `https://chatroom-fksh.onrender.com/file_path/${uniqueFileName}`;
+//         try {
+//             let response = await fetch(file_url, {
+//                 method: 'POST',
+//                 headers: {
+//                     "Content-type": "application/json; charset=UTF-8"
+//                 }
+//             });
+
+//             let data = await response.json();
+//             console.log(data);
+
+//             if (data.status === 'success') {
+//                 // Update the href to the server path if successful
+//                 a.href = data.file_path;
+//                 a.textContent = `Open ${fileName}`;
+//             }
+//         } catch (error) {
+//             console.error('Error fetching file path:', error);
+//         }
+
+//         URL.revokeObjectURL(url); // Clean up the URL object after download
+//     });
+
+//     // Log the file name for debugging
+//     console.log(`Received file: ${fileName}`);
+// }
+
+function handleFile(fileName, fileData, sent_username) {
+    const byteCharacters = atob(fileData); //base-64 string to binary string conversion
+    const byteArrays = [];
+    
     for (let offset = 0; offset < byteCharacters.length; offset += 512) {
         const slice = byteCharacters.slice(offset, offset + 512);
         const byteNumbers = new Array(slice.length);
@@ -189,66 +265,29 @@ async function handleFile(fileName, fileData, sent_username) {
         }
         byteArrays.push(new Uint8Array(byteNumbers));
     }
-
-    const timestamp = new Date().getTime();
-    const uniqueFileName = `${timestamp}_${fileName}`;
-
     const blob = new Blob(byteArrays, { type: 'application/octet-stream' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = uniqueFileName;
+    a.download = fileName;
+    // a.click();
     a.textContent = `Download ${fileName}`;
-
-    // Optional: Create a div to show the download link
+    
+    // Optional: Create a div or any other element to show the download link
     const fileContainer = document.createElement('div');
     fileContainer.appendChild(a);
 
     // Append the link to the messages div or another container element
     const messagesDiv = document.getElementById('messages');
-    if (sent_username === username) {
+    if(sent_username===username){
         fileContainer.classList.add('my-message');
-    } else {
-        fileContainer.classList.add('other-message');
+    }
+    else {
+        fileContainer.classList.add('other-messsage');
     }
     fileContainer.classList.add('message');
     messagesDiv.appendChild(fileContainer);
-
-    // Add event listener for when the link is clicked
-    a.addEventListener('click', async (event) => {
-        event.preventDefault(); // Prevent default action to control the flow
-
-        // Optional: Log or perform any action before downloading
-        console.log(`User clicked to download: ${fileName}`);
-
-        // Proceed with download after logging
-        // a.click();
-
-        // Optionally, fetch the file path from the server after the click
-        const file_url = `https://chatroom-fksh.onrender.com/file_path/${uniqueFileName}`;
-        try {
-            let response = await fetch(file_url, {
-                method: 'POST',
-                headers: {
-                    "Content-type": "application/json; charset=UTF-8"
-                }
-            });
-
-            let data = await response.json();
-            console.log(data);
-
-            if (data.status === 'success') {
-                // Update the href to the server path if successful
-                a.href = data.file_path;
-                a.textContent = `Open ${fileName}`;
-            }
-        } catch (error) {
-            console.error('Error fetching file path:', error);
-        }
-
-        URL.revokeObjectURL(url); // Clean up the URL object after download
-    });
-
-    // Log the file name for debugging
+    
+    // Optional: Log a message for debugging
     console.log(`Received file: ${fileName}`);
 }
