@@ -139,7 +139,23 @@ body{
     background-color: white;
     cursor: pointer;
 }
-
+.pop_up{
+    display: none;
+    background-color: white;
+    height: 75px;
+    border-radius: 5px;
+    margin-right: 450px;
+    margin-top: 10px;
+}
+#sendFileButton{
+   
+    background-color: rgb(126, 126, 251);
+    color: white;
+    padding: 5px 15px;
+    border: none;
+    border-radius: 5px;
+    margin-left: 25px;
+}
 .top{
     z-index: 2;
 }

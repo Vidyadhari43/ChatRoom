@@ -97,56 +97,57 @@ document.getElementById('clip').addEventListener('click', function() {
             alert('No file selected.');
             return;
         }
-        
+        document.getElementById('pop_up').style.display='block';
         // Once a file is selected, display the new div and button
        // alert('File is uploaded!');
         
-        const newDiv = document.createElement('div');
-        newDiv.id = 'textDiv';
-        newDiv.style.marginLeft='12px';
-        newDiv.style.marginTop='175px';
-        // Add some text to the div
-        const text = document.createElement('p');
-        text.innerText = 'File is uploaded!';
-        newDiv.appendChild(text);
+    //     const newDiv = document.createElement('div');
+    //     newDiv.id = 'textDiv';
+    //     newDiv.style.marginLeft='0px';
+    //     newDiv.style.marginTop='175px';
+    //     newDiv.style.marginRight='100 px';
+    //     // Add some text to the div
+    //     const text = document.createElement('p');
+    //     text.innerText = 'File is uploaded!';
+    //     newDiv.appendChild(text);
     
-        // Create a new button and append it to the div
-        const newButton = document.createElement('button');
-        newButton.innerText = 'Send';
-        newButton.style.backgroundColor = 'rgb(126, 126, 251)';
-        newButton.style.color = 'white';
-        newButton.style.padding = '5px 15px';
-        newButton.style.border = 'none';
-        newButton.style.borderRadius = '5px';
+    //     // Create a new button and append it to the div
+    //     const newButton = document.createElement('button');
+    //     newButton.innerText = 'Send';
+    //     newButton.style.backgroundColor = 'rgb(126, 126, 251)';
+    //     newButton.style.color = 'white';
+    //     newButton.style.padding = '5px 15px';
+    //     newButton.style.border = 'none';
+    //     newButton.style.borderRadius = '5px';
         
-       // button.className = 'button-style'
-        newButton.onclick = function() {
-           // alert('New button clicked!');
-            const fileInput = document.getElementById('fileInput').files[0];
-            if(!fileInput){
-                alert('Please select a file.');
-                return;
-            }
-            const reader = new FileReader();
-            reader.onload = () => {
-                const base64Data = btoa(reader.result);
-                const message = {
-                    type: "file",
-                    file_name: fileInput.name,
-                    data: base64Data
-                };
+    //    // button.className = 'button-style'
+    //     newButton.onclick = function() {
+    //        // alert('New button clicked!');
+    //         const fileInput = document.getElementById('fileInput').files[0];
+    //         if(!fileInput){
+    //             alert('Please select a file.');
+    //             return;
+    //         }
+    //         const reader = new FileReader();
+    //         reader.onload = () => {
+    //             const base64Data = btoa(reader.result);
+    //             const message = {
+    //                 type: "file",
+    //                 file_name: fileInput.name,
+    //                 data: base64Data
+    //             };
         
-                socket.send(JSON.stringify(message));
-            };
-            reader.readAsArrayBuffer(fileInput);
-            document.getElementById('fileInput').value='';
-            box.style.display = 'none';
+    //             socket.send(JSON.stringify(message));
+    //         };
+    //         reader.readAsArrayBuffer(fileInput);
+    //         document.getElementById('fileInput').value='';
+    //         box.style.display = 'none';
 
-        };
-        newDiv.appendChild(newButton);
+    //     };
+    //     newDiv.appendChild(newButton);
     
-        // Append the new div to the container div
-        box.appendChild(newDiv);
+    //     // Append the new div to the container div
+    //     box.appendChild(newDiv);
     });
 
     // Trigger the file input to open the file dialog
@@ -172,6 +173,7 @@ document.getElementById('sendFileButton').addEventListener('click', function() {
     };
     reader.readAsArrayBuffer(fileInput);
     document.getElementById('fileInput').value=''; //clear the input
+    document.getElementById('pop_up').style.display='none';
 });
 function leaveRoom() {
     
