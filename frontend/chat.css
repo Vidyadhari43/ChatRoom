@@ -35,13 +35,62 @@ body{
     border-radius: 20px;
     width: 180px;
     height: 27px;
+    aspect-ratio: 2/1;
     padding-top: 1px;
     padding-left: 0px;
     padding-right: 0px;
 }
+.custom-file-upload {
+    display: inline-block;
+    padding: 8px 12px;
+    cursor: pointer;
+    background-color: #ddd;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+/* .button-style {
+    background-color: blue;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+} */
+.custom-file-upload:hover {
+    background-color: #ccc;
+}
+.outside{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.voicecall{
+    background:none;
+    border: none;
+    margin-left: 15px;
+}
+.videocall{
+    background:none;
+    border: none;
+    margin-left: 15px;
+}
 .roomcode{
     z-index: 2;
     /* background-color: white; */
+}
+.leave{
+    background-color: #ed5151;
+    color: white;
+    padding: 1px 5px;
+    height: 35px;
+    border-radius: 8px;
+    margin-left: 30px;
+}
+.leave:hover{
+    background-color: #ea7979;
+    color: white;
+    padding: 1px 5px;
+    border-radius: 8px;
 }
 .main{
     z-index: 2;
@@ -75,17 +124,17 @@ body{
 .text{
     width: 500px;
     height: 30px;
-    border-color: rgb(231, 150, 238);
+    border-color: rgb(126, 126, 251);
     border-style: solid;
     
 }
 .text:focus{
     /* border-color: rgb(165, 6, 179);
     border-style: solid; */
-    border: 3px solid rgb(223, 123, 232);
+    border: 3px solid rgb(106, 106, 196);
 }
 #sendButton{
-    color: rgb(165, 6, 179);
+    color: rgb(126, 126, 251);
     border: none;
     background-color: white;
     cursor: pointer;
