@@ -16,9 +16,9 @@ socket.onmessage = function(event) {
     console.log('Message from server:', event.data);
     const recv_msg=JSON.parse(event.data)
     const messagesDiv = document.getElementById('messages');
-    const newMessage = document.createElement('div');
-    const username = sessionStorage.getItem('username');
+    // const username = sessionStorage.getItem('username');
     if(recv_msg.action=="file"){
+        const newMessage = document.createElement('div');
         handleFile(recv_msg.file_name,recv_msg.data,recv_msg.sent_username);
         // newMessage.textContent = recv_msg.sent_username+': '+recv_msg.file_name;
     }
@@ -27,11 +27,15 @@ socket.onmessage = function(event) {
         newElement.id='accept';
         newElement.textContent=`call started by ${recv_msg.sent_username}`;
         newElement.onclick = accept_vc; // Assign the function reference without parentheses
-        paragraph.appendChild(newElement);
+        messagesDiv.appendChild(newElement);
+        if(recv_msg.sent_username==username){
+            window.location.href='/frontend/call.html';
+        }
     }
     else
     // (recv_msg.action=="text" || recv_msg.action=="join" || recv_msg.action=="left")
     {
+        const newMessage = document.createElement('div');
         newMessage.textContent = recv_msg.sent_username+': '+recv_msg.msg;
         // use recv_msg.action 
         // action='join' for joined the chat, action='left' for left the chat, action='text' for other messages
