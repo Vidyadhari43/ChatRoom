@@ -380,7 +380,7 @@ document.getElementById('videocall').addEventListener('click',function(){
         from_username:username
         // from:username
     };
-    ws.send(JSON.stringify(msg1));
+    socket.send(JSON.stringify(msg1));
 })
 
 document.getElementById('voicecall').addEventListener('click',function(){
@@ -389,7 +389,7 @@ document.getElementById('voicecall').addEventListener('click',function(){
         from_username:username
         // from:username
     };
-    ws.send(JSON.stringify(msg1));
+    socket.send(JSON.stringify(msg1));
 })
 
 async function accept_vc() {
