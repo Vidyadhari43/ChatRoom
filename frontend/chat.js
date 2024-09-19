@@ -22,6 +22,13 @@ socket.onmessage = function(event) {
         handleFile(recv_msg.file_name,recv_msg.data,recv_msg.sent_username);
         // newMessage.textContent = recv_msg.sent_username+': '+recv_msg.file_name;
     }
+    else if(recv_msg.action=="call"){
+        const newElement=document.createElement('button');
+        newElement.id='accept';
+        newElement.textContent=`call started by ${recv_msg.sent_username}`;
+        newElement.onclick = accept_vc; // Assign the function reference without parentheses
+        paragraph.appendChild(newElement);
+    }
     else
     // (recv_msg.action=="text" || recv_msg.action=="join" || recv_msg.action=="left")
     {
@@ -365,4 +372,27 @@ function handleFile(fileName, fileData, sent_username) {
     
     // Optional: Log a message for debugging
     console.log(`Received file: ${fileName}`);
+}
+
+document.getElementById('videocall').addEventListener('click',function(){
+    const msg1={
+        type:"call",
+        from_username:username
+        // from:username
+    };
+    ws.send(JSON.stringify(msg1));
+})
+
+document.getElementById('voicecall').addEventListener('click',function(){
+    const msg1={
+        type:"call",
+        from_username:username
+        // from:username
+    };
+    ws.send(JSON.stringify(msg1));
+})
+
+async function accept_vc() {
+    console.log('accept func called');
+    window.location.href = '/frontend/call.html';
 }

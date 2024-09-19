@@ -1,5 +1,6 @@
 import base64
 from collections import defaultdict
+import platform
 from fastapi import FastAPI, WebSocket,WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
@@ -144,6 +145,8 @@ async def enter_room(websocket:WebSocket,unique_code:str,username:str)->None:
                 # print('text')
                 content = message.get("content")
                 await api_functions.broadcast_msg(username,content,users,unique_code,'text')
+            elif message_type=='call':
+                await api_functions.broadcast_msg(username,'',users,unique_code,'call')
             elif message_type=="file":
                 # print('file')
                 file_name = message.get("file_name")
